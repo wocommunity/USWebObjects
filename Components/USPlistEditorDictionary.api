@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wodefinitions>
+	<wo class="SWDictionaryEditor" wocomponentcontent="false">
+
+		<binding name="selectedDictionary"/>
+
+		<validation message="&apos;selectedDictionary&apos; is a required binding">
+			<unbound name="selectedDictionary"/>
+		</validation>
+	</wo>
+</wodefinitions>

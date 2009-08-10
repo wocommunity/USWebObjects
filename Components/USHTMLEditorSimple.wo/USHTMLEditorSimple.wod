@@ -1,0 +1,4 @@
+TEXT: WOText {
+	value = value;
+	class = "swlargertext";
+}

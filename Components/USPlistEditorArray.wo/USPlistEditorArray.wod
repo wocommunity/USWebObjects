@@ -1,0 +1,31 @@
+PopUpButton1: WOPopUpButton {
+	displayString = currentObjectType;
+	item = currentObjectType;
+	list = objectTypes;
+	selection = selectedObjectType;
+}
+
+REPETITION: WORepetition {
+	index = index;
+	count = selectedArray.count;
+}
+
+DICTIONARY_EDITOR: USPlistEditorDictionary {
+	selectedDictionary = currentObject;
+}
+
+String1: WOString {
+	value = session.@ls.arrayEditorAddMessage;
+}
+
+SUBMIT_BUTTON: WOSubmitButton {
+	action = removeElement;
+	value = " x ";
+	class = "accessbutton";
+}
+
+SubmitButton3: WOSubmitButton {
+	action = addElement;
+	value = session.@ls.arrayEditorAddButtonTitle;
+	class = "accessbutton";
+}

@@ -1,0 +1,67 @@
+IS_STRING: WOConditional {
+	condition = isString;
+}
+
+IS_DICTIONARY: WOConditional {
+	condition = isDictionary;
+}
+
+IS_ARRAY: WOConditional {
+	condition = isArray;
+}
+
+PopUpButton1: WOPopUpButton {
+	displayString = currentObjectType;
+	item = currentObjectType;
+	list = objectTypes;
+	selection = selectedObjectType;
+}
+
+Repetition1: WORepetition {
+	item = currentKey;
+	list = allKeys;
+}
+
+ARRAY_EDITOR: USPlistEditorArray {
+	selectedArray = selectedDictionary;
+}
+
+SWDictionaryEditor21: USPlistEditorDictionary {
+	selectedDictionary = currentItem;
+}
+
+String1: WOString {
+	value = session.@ls.dictionaryEditorAddMessage;
+}
+
+String4: WOString {
+	value = currentKey;
+}
+
+SubmitButton1: AjaxSubmitButton {
+	action = removeSetting;
+	value = " x ";
+	class = "accessbutton";
+	updateContainerID = name;
+}
+
+SubmitButton3: AjaxSubmitButton {
+	action = addSetting;
+	value = session.@ls.dictionaryEditorAddButtonTitle;
+	class = "accessbutton";
+	updateContainerID = name;
+}
+
+TextField1: WOTextField {
+	value = newKey;
+	size = 20;
+}
+
+STRING_EDITOR: WOTextField {
+	value = selectedDictionary;
+	size = 60;
+}
+
+UPDATE_CONTAINER : AjaxUpdateContainer {
+	id = name;
+}

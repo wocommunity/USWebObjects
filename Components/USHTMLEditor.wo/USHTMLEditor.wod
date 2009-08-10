@@ -1,0 +1,16 @@
+IE_MOZILLA_COMPATIBLE_CONDITIONAL: WOConditional {
+	condition = isExplorerCompatible;
+}
+
+NOT_IE_MOZILLA_COMPATIBLE_CONDITIONAL: WOConditional {
+	condition = isExplorerCompatible;
+	negate = true;
+}
+
+FCK_EDITOR: USHTMLEditorTinyMCE {
+	value = value;
+}
+
+SIMPLE_EDITOR: USHTMLEditorSimple {
+	value = value;
+}

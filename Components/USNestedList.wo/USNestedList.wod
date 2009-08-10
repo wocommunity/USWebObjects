@@ -1,0 +1,19 @@
+ComponentContent1: WOComponentContent {}
+
+Content: WOComponentContent {}
+
+ListRepetition: WORepetition {
+    list = ^list;
+    item = ^item;
+    index = ^index;
+}
+
+Sublist: USNestedList {
+    list = ^sublist;
+    item = ^item;
+    sublist = ^sublist;
+}
+
+SublistConditional: WOConditional {
+    condition = hasSublist;
+}

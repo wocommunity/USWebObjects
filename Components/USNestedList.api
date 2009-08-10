@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wodefinitions>
+	<wo class="VSNestedList" wocomponentcontent="true">
+
+		<binding name="list"/>
+		<binding name="item"/>
+		<binding name="index"/>
+		<binding name="sublist"/>
+
+		<validation message="&apos;list&apos; is a required binding">
+			<unbound name="list"/>
+		</validation>
+
+		<validation message="&apos;item&apos; is a required binding">
+			<unbound name="item"/>
+		</validation>
+
+		<validation message="&apos;sublist&apos; is a required binding">
+			<unbound name="sublist"/>
+		</validation>
+	</wo>
+</wodefinitions>

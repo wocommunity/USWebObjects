@@ -1,0 +1,48 @@
+FORM: WOForm {}
+
+Hyperlink1: WOHyperlink {
+	action = nullifyCalendar;
+}
+
+PopUpButton1: WOPopUpButton {
+	list = days;
+	noSelectionString = session.@ls.datePickerDay;
+	selection = day;
+}
+
+PopUpButton2: WOPopUpButton {
+	list = months;
+	selection = month;
+	noSelectionString = session.@ls.datePickerMonth;
+}
+
+PopUpButton3: WOPopUpButton {
+	list = years;
+	selection = year;
+	noSelectionString = session.@ls.datePickerYear;
+}
+
+PopUpButton4: WOPopUpButton {
+	list = hours;
+	selection = hour;
+	noSelectionString = session.@ls.datePickerHour;
+}
+
+PopUpButton5: WOPopUpButton {
+	list = minutes;
+	selection = minute;
+	noSelectionString = session.@ls.datePickerMinute;
+}
+
+String1: WOString {
+	value = session.@ls.datePickerClearDate;
+}
+
+String2: WOString {
+	value = session.@ls.datePickerHeading;
+}
+
+SubmitButton1: WOSubmitButton {
+	action = submit;
+	value = session.@ls.datePickerButtonTitle;
+}

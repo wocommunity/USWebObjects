@@ -1,0 +1,8 @@
+TEXT_AREA : WOText {
+	value = ^value;
+	id = "elm1";
+	name = "elm1";
+	rows = "15";
+	cols = "75";
+	style = "width: 85%; height: 400px;";
+}

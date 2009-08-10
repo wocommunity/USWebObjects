@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wodefinitions>
+	<wo class="SWDateField" wocomponentcontent="false">
+
+		<binding name="key"/>
+		<binding name="record"/>
+
+		<validation message="&apos;key&apos; is a required binding">
+			<unbound name="key"/>
+		</validation>
+
+		<validation message="&apos;record&apos; is a required binding">
+			<unbound name="record"/>
+		</validation>
+	</wo>
+</wodefinitions>

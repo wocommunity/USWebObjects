@@ -1,0 +1,30 @@
+CONTENT_1: WOComponentContent {}
+
+CONTENT_2: WOComponentContent {}
+
+SINGLE_TAB_COND: WOConditional {
+	condition = hasMultipleTabs;
+	negate = true;
+}
+
+TAB_REPETITION: WORepetition {
+	item = currentTab;
+	list = tabs;
+}
+ 
+TAB_BUTTON: AjaxSubmitButton {
+	action = selectTab;
+	value = currentTab;
+	class = currentStyleClass;
+	updateContainerID = uniqueID;
+}
+
+MULTIPLE_TABS_COND: WOConditional {
+	condition = hasMultipleTabs;
+	negate = false;
+}
+
+UPDATE_CONTAINER: AjaxUpdateContainer {
+	elementName = "div";
+	id = uniqueID;
+}
