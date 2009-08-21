@@ -1,0 +1,60 @@
+<style type="text/css">
+	body {
+		padding: 10px;
+	}
+
+	.processes {
+		white-space: pre;
+		font-family: Courier;
+	}
+	
+	tr {
+		text-align: left;
+	}
+</style>
+
+<h2>Gagnagrunnstengingar</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+	<tr>
+		<th>EOModel</th>
+		<th>Staðsetning</th>
+		<th>URL</th>
+		<th>Plugin</th>
+		<th>Entity</th>
+		<th>Notandi</th>
+	</tr>
+	<webobject name="EOMODEL_REPETITION">
+		<tr>
+			<td><webobject name="NAME_STRING" /></td>
+			<td><webobject name="BUNDLE_NAME_STRING" /></td>
+			<td><webobject name="CONN_DICT_STRING" /></td>
+			<td><webobject name="PLUGIN_STRING" /></td>
+			<td><webobject name="ENTITY_LIST_LINK"><webobject name="ENTITY_REPTITION"><webobject name="ENTITY_NAME_STRING" /><br /></webobject>&nbsp;</webobject></td>
+			<td><webobject name="CONN_DICT_USERNAME_STRING" /></td>
+		</tr>
+</webobject>
+</table>
+
+<h2>Properties</h2>
+<table border="1" cellpadding="2" cellspacing="0">
+	<tr>
+		<th>Heiti</th>
+		<th>Gildi</th>
+	</tr>
+<webobject name="PROPERTY_REPETITION">
+	<tr>
+		<td><webobject name="PROPERTY_NAME_STRING" /></td>
+		<td><webobject name="PROPERTY_VALUE_STRING" /></td>
+	</tr>
+</webobject>
+</table>
+
+<h2>Classpath</h2>
+<div class="processes">
+	<webobject name="CLASSPATH_STRING" />
+</div>
+
+<h2>Forrit á miðlara</h2>
+<div class="processes">
+	<webobject name="PS_STRING" />
+</div>

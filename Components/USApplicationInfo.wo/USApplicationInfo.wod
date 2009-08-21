@@ -1,0 +1,62 @@
+CONN_DICT_STRING : WOString {
+	value = currentModel.connectionDictionary.URL; // VALID
+}
+
+CONN_DICT_USERNAME_STRING : WOString {
+	value = currentModel.connectionDictionary.username;
+}
+
+PLUGIN_STRING : WOString {
+	value = currentModel.connectionDictionary.plugin;
+}
+
+NAME_STRING : WOString {
+	value = currentModel.name;
+}
+
+EOMODEL_REPETITION : WORepetition {
+	item = currentModel;
+	list = allModels.@sortAsc.name;
+}
+
+PS_STRING : WOString {
+	value = psString;
+}
+
+CLASSPATH_STRING : WOString {
+	value = reportPath; 
+	escapeHTML = false;
+}
+
+PROPERTY_REPETITION : WORepetition {
+	item = currentPropertyKey;
+	list = propertyKeys;
+}
+
+PROPERTY_NAME_STRING : WOString {
+	value = currentPropertyKey;
+}
+
+PROPERTY_VALUE_STRING : WOString {
+	value = currentPropertyValue;
+}
+
+BUNDLE_NAME_STRING : WOString {
+	value = currentBundleName;
+}
+
+ENTITY_LIST_LINK : AjaxExpansion {
+	id = currentModel.name;
+	insertion = "Effect.blind";
+	insertionDuration = "0.1";
+	string = "Skoða...";
+}
+
+ENTITY_REPTITION : WORepetition {
+	list = currentModel.entities;
+	item = currentEntity;
+}
+
+ENTITY_NAME_STRING : WOString {
+	value = currentEntity.name;
+}
