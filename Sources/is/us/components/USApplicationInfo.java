@@ -37,6 +37,11 @@ public class USApplicationInfo extends ERXComponent {
 		super( context );
 	}
 
+	@Override
+	protected com.webobjects.foundation.NSArray<String> additionalCSSFiles() {
+		return new NSArray<String>( "USApplicationInfo.css" );
+	}
+
 	public NSArray<EOModel> allModels() {
 		return EOModelGroup.defaultGroup().models();
 	}
@@ -124,7 +129,7 @@ public class USApplicationInfo extends ERXComponent {
 		b.append( reportPath( "java.class.path" ) );
 		b.append( "\n" );
 
-		return b.toString();
+		return USStringUtilities.convertBreakString( b.toString() );
 	}
 
 	public static NSArray pp( String path ) {

@@ -49,7 +49,7 @@ ENTITY_LIST_LINK : AjaxExpansion {
 	id = currentModel.name;
 	insertion = "Effect.blind";
 	insertionDuration = "0.1";
-	string = "Skoða...";
+	string = "See list...";
 }
 
 ENTITY_REPTITION : WORepetition {

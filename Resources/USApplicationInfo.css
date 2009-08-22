@@ -1,0 +1,24 @@
+body {
+	font-family: Helvetica, sans-serif;
+	font-size: 9px;
+	padding: 10px;
+}
+
+body, th, td {
+	font-family: Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+table {
+	empty-cells: show;
+	border-top: 1px solid gray;
+	border-left: 1px solid gray;
+}
+
+th, td {
+	text-align: left;
+	vertical-align: top;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	padding: 2px 10px;
+}
