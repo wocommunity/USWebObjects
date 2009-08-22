@@ -10,7 +10,7 @@ PLUGIN_STRING : WOString {
 	value = currentModel.connectionDictionary.plugin;
 }
 
-NAME_STRING : WOString {
+EOMODEL_NAME_STRING : WOString {
 	value = currentModel.name;
 }
 
