@@ -80,7 +80,7 @@ public class USC {
 	public static final String SEMICOLON = ";";
 	public static final NSArray<String> MONTH_NAMES = new NSArray<String>( new String[] { "janúar", "febrúar", "mars", "apríl", "maí", "júní", "júlí", "ágúst", "september", "október", "nóvember", "desember" } );
 	public static final NSArray<String> WEEK_DAY_NAMES = new NSArray<String>( new String[] { "sunnudagur", "mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur" } );
-
+	public static final char[] icelandic_alphabet = "AÁBCDÐEÉFGHIÍJKLMNOÓPQRSTUÚVWXYÝÞÆÖZaábcdðeéfghiíjklmnoópqrstuúvwxyýþæöz0123456789".toCharArray();
 	public static final String US_PERSIDNO = "6608023120";
 
 	// Framework names
