@@ -119,10 +119,14 @@ public class USC {
 	public static final String UTF_8 = "UTF-8";
 	public static final String ISO_8859_1 = "ISO-8859-1";
 
-	// Cpls
-	public static final String PLATE_STATUS_04 = "04"; // In storage
-	public static final String PLATE_STATUS_05 = "05"; // On Vehicle
-	public static final String PLATE_STATUS_06 = "06"; // Destroyed
+	// Cpls - Plate status codes
+	public static final String PLATE_STATUS_ORDERED = "01";
+	public static final String PLATE_STATUS_IN_PRODUCTION = "02";
+	public static final String PLATE_STATUS_RECEIVED = "03";
+	public static final String PLATE_STATUS_IN_STORAGE = "04";
+	public static final String PLATE_STARTUS_ON_VEHICLE = "05";
+	public static final String PLATE_STATUS_DESTROYED = "06";
+	public static final String PLATE_STATUS_REDIRECTED = "11";
 
 	// Cret.code
 	public static final String REGTYPE_CUSTOMS = "TO";
