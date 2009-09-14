@@ -124,7 +124,7 @@ public class USC {
 	public static final String PLATE_STATUS_IN_PRODUCTION = "02";
 	public static final String PLATE_STATUS_RECEIVED = "03";
 	public static final String PLATE_STATUS_IN_STORAGE = "04";
-	public static final String PLATE_STARTUS_ON_VEHICLE = "05";
+	public static final String PLATE_STATUS_ON_VEHICLE = "05";
 	public static final String PLATE_STATUS_DESTROYED = "06";
 	public static final String PLATE_STATUS_REDIRECTED = "11";
 
