@@ -1,6 +1,5 @@
 package is.us.util;
 
-import is.us.util.USIslandIsAuthenticationClient;
 import is.us.wo.util.USHTTPUtilities;
 
 import org.slf4j.*;
@@ -8,12 +7,12 @@ import org.slf4j.*;
 import com.webobjects.appserver.*;
 import com.webobjects.foundation.NSBundle;
 
-// TODO: needs review 
 /**
  * A WO wrapper for {@link is.us.util.USIslandIsAuthenticationClient}
  * 
  * @author Bjarni Sævarsson <bjarnis@us.is>
  * @author Atli Páll Hafsteinsson <atlip@us.is>
+ * @reviewedby Logi Helgu at Sep 16, 2009( see JIRA issue INN-728 )
  */
 
 public class USIslandIsUtilities {
@@ -57,7 +56,7 @@ public class USIslandIsUtilities {
 	}
 
 	/**
-	 * @return The remote user's IP address, or the localhost ip if no IP is found.
+	 * @return The remote user's IP address, or the localhost IP if no IP is found.
 	 */
 	private static String userIp( WORequest request ) {
 		String userIp = USHTTPUtilities.ipAddressFromRequest( request );
