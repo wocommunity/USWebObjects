@@ -233,6 +233,9 @@ public class USHTTPUtilities {
 		if( !USStringUtilities.stringHasValue( domain ) )
 			domain = request.headerForKey( HEADER_HOST_IIS );
 
+		if( domain == null )
+			return null;
+
 		return domain.toLowerCase();
 	}
 
