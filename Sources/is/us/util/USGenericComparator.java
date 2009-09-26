@@ -42,11 +42,8 @@ public class USGenericComparator extends NSComparator {
 
 	public int compare( Object kvc1, Object kvc2 ) throws ComparisonException {
 
-		if( kvc1 == null || kvc2 == null || !(kvc1 instanceof NSKeyValueCodingAdditions) || !(kvc2 instanceof NSKeyValueCodingAdditions) )
-			throw new ComparisonException( "Objects must implement NSKeyValueCodingAdditions to be sortable." );
-
-		String string1 = (String)((NSKeyValueCodingAdditions)kvc1).valueForKeyPath( _keyPath );
-		String string2 = (String)((NSKeyValueCodingAdditions)kvc2).valueForKeyPath( _keyPath );
+		String string1 = (String)NSKeyValueCodingAdditions.Utility.valueForKeyPath( kvc1, _keyPath );
+		String string2 = (String)NSKeyValueCodingAdditions.Utility.valueForKeyPath( kvc2, _keyPath );
 
 		if( string1 == null )
 			string1 = USC.EMPTY_STRING;
