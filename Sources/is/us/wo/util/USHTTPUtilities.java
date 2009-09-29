@@ -11,7 +11,7 @@ import org.slf4j.*;
 import com.webobjects.appserver.*;
 import com.webobjects.foundation.*;
 
-import er.extensions.foundation.*;
+import er.extensions.foundation.ERXRefByteArrayOutputStream;
 
 /**
  * Fetches various information from HTTP-headers. 
@@ -58,7 +58,7 @@ public class USHTTPUtilities {
 	private static final String HEADER_CONTENT_INLINE = "inline";
 	private static final String HEADER_CONTENT_ATTACHMENT = "attachment";
 
-	private static final String DEFAULT_MIME_TYPE = "octet/stream";
+	private static final String MIME_TYPE_OCTET_STREAM = "octet/stream";
 	private static final String CONTENT_ENCODING_GZIP = "gzip";
 	private static final String UNTITLED_FILENAME = "Untitled";
 
@@ -399,49 +399,28 @@ public class USHTTPUtilities {
 		if( bytes != null )
 			data = new NSData( bytes );
 
-		return responseWithDataAndMimeType( filename, data, mimeType );
+		return responseWithDataAndMimeType( filename, data, mimeType, false );
 	}
 
 	/**
 	 * Creates a WOResponse containing the given string, encoded in UTF-8.
 	 */
-	public static WOResponse responseWithDataAndMimeType( String filename, String string, String mimeType, boolean forceDownload ) {
+	public static WOResponse responseWithDataAndMimeType( String filename, String string, String mimeType ) {
 
-		if( !USStringUtilities.stringHasValue( filename ) )
-			filename = UNTITLED_FILENAME;
+		if( !USStringUtilities.stringHasValue( string ) ) {
+			string = "";
+		}
 
 		NSData data = NSData.EmptyData;
 
-		if( data != null ) {
-			try {
-				data = new NSData( string.getBytes( UTF_8 ) );
-			}
-			catch( UnsupportedEncodingException e ) {
-				logger.debug( "Attempted to convert string to unsupported encoding", e );
-			}
+		try {
+			data = new NSData( string.getBytes( UTF_8 ) );
+		}
+		catch( UnsupportedEncodingException e ) {
+			logger.debug( "Attempted to convert string to unsupported encoding", e );
 		}
 
-		if( mimeType == null )
-			mimeType = DEFAULT_MIME_TYPE;
-
-		String disposition = HEADER_CONTENT_INLINE;
-
-		if( forceDownload ) {
-			disposition = HEADER_CONTENT_ATTACHMENT;
-		}
-
-		WOResponse response = new WOResponse();
-		response.setHeader( mimeType + "; charset=UTF-8", HEADER_CONTENT_TYPE );
-		response.setHeader( data.length() + "", HEADER_CONTENT_LENGTH );
-		response.setHeader( data.length() + "", HEADER_ACCEPT_HEADER );
-		response.setHeader( data.length() + "", HEADER_ACCEPT_RANGES );
-		response.setHeader( disposition + ";filename=\"" + filename + "\"", HEADER_CONTENT_DISPOSITION );
-		response.removeHeadersForKey( HEADER_CACHE_CONTROL );
-		response.removeHeadersForKey( HEADER_PRAGMA );
-		response.removeHeadersForKey( HEADER_EXPIRES );
-		response.removeHeadersForKey( HEADER_EXPIRES );
-		response.setContent( data );
-		return response;
+		return responseWithDataAndMimeType( filename, data, mimeType + "; charset=UTF-8", false );
 	}
 
 	/**
@@ -449,14 +428,17 @@ public class USHTTPUtilities {
 	 */
 	public static WOResponse responseWithDataAndMimeType( String filename, NSData data, String mimeType, boolean forceDownload ) {
 
-		if( !USStringUtilities.stringHasValue( filename ) )
+		if( !USStringUtilities.stringHasValue( filename ) ) {
 			filename = UNTITLED_FILENAME;
+		}
 
-		if( data == null )
+		if( data == null ) {
 			data = NSData.EmptyData;
+		}
 
-		if( mimeType == null )
-			mimeType = DEFAULT_MIME_TYPE;
+		if( mimeType == null ) {
+			mimeType = MIME_TYPE_OCTET_STREAM;
+		}
 
 		String disposition = HEADER_CONTENT_INLINE;
 
@@ -472,7 +454,6 @@ public class USHTTPUtilities {
 		response.setHeader( disposition + ";filename=\"" + filename + "\"", HEADER_CONTENT_DISPOSITION );
 		response.removeHeadersForKey( HEADER_CACHE_CONTROL );
 		response.removeHeadersForKey( HEADER_PRAGMA );
-		response.removeHeadersForKey( HEADER_EXPIRES );
 		response.removeHeadersForKey( HEADER_EXPIRES );
 		response.setContent( data );
 		return response;
@@ -517,21 +498,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Really, really cleans up the response.
-	 * 
-	 * WARNING: Experimental! Use at your own risk.
-	 */
-	public static void ultraCleanResponse( WOResponse response ) {
-		String s = response.contentString();
-		s = ERXStringUtilities.removeCharacters( s, USC.LF );
-		s = ERXStringUtilities.removeCharacters( s, "\r" );
-		s = ERXStringUtilities.removeCharacters( s, "\t" );
-		response.setContent( s );
-		response.setHeader( String.valueOf( response.content().length() ), HEADER_CONTENT_LENGTH );
-	}
-
-	/**
-	 * 404 
+	 * Response with HTTP status 404 
 	 */
 	public static WOResponse response404() {
 		WOResponse r = new WOResponse();
@@ -540,7 +507,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * 500 
+	 * Response with HTTP status 500 
 	 */
 	public static WOResponse response500() {
 		WOResponse r = new WOResponse();
