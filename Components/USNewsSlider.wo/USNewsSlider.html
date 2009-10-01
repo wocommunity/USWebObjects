@@ -1,0 +1,24 @@
+<div id="newsSlider">
+	<div id="slideContent">
+		<ul>
+			<wo:repetition list = "$slides" item = "$currentSlide" index = "$currentSlideIndex">
+				<li>
+					<div>
+						<div>
+							<wo:condition condition = "$hasImage">
+								<div class="slideImage"><wo:image data = "$currentSlide.imageData" mimeType = "image/jpeg"/></div>
+							</wo:condition>
+							<div class="slideHeading"><wo:hyperlink href = "$currentSlide.link"><wo:string value = "$currentSlide.heading" /></wo:hyperlink></div>
+							<div class="slideContent"><wo:string value = "$currentSlide.text" /></div>
+						</div>
+					</div>
+				</li>
+			</wo:repetition>
+		</ul>
+	</div>
+	<div id="slideIndex"></div><div id="slidePreviousNextButtons"></div><div id="slideStopButton"></div>
+	<script >
+		var slider = new NewsSlider(<wo:string value="$params" />);
+		Event.observe(window, "load", function() { slider }, false);
+	</script>
+</div>
