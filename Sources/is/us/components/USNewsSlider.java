@@ -5,6 +5,7 @@ import com.webobjects.appserver.*;
 import er.ajax.AjaxUtils;
 import er.extensions.components.ERXComponent;
 
+//TODO: needs review  JIRA VEF-494
 /**
  * Component to display news (or other info) in slide show
  *

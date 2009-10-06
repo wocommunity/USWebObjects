@@ -1,5 +1,6 @@
 package is.us.components;
 
+//TODO: needs review  JIRA VEF-494
 /**
  * Class that contains data for a slide for the news slider component
  * 
