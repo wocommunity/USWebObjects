@@ -7,6 +7,32 @@
 * Author: Atli Páll Hafsteinsson <atlip@us.is>
 * Based on "Accessible JavaScript Newsticker" by Bartelme Design
 * http://www.bartelme.at/journal/archive/accessible_javascript_newsticker
+*
+* Example usage:
+*
+* <div id="newsSlider">
+* 	<div id="slideContent">
+* 		<ul>
+* 			<li>
+* 				Content to display in slide #1	
+* 			</li>
+* 			<li>
+* 				Content to display in slide #2	
+* 			</li>
+* 			<li>
+* 				Content to display in slide #3	
+* 			</li>
+* 		</ul>
+* 	</div>
+* 	<div id="slideIndex"></div>
+* 	<div id="slidePreviousNextButtons"></div>
+* 	<div id="slideStopButton"></div>
+* 	<script>
+* 		var slider = new NewsSlider(5.0, 0.5, 'Stop slide show', '&lt;', '&gt;');
+* 		Event.observe(window, "load", function() { slider }, false);
+* 	</script>
+* </div>
+*
 */
 var NewsSlider = Class.create();
 NewsSlider.prototype = {
