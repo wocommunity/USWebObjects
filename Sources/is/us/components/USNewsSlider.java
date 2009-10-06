@@ -20,6 +20,13 @@ import er.extensions.components.ERXComponent;
  */
 public class USNewsSlider extends ERXComponent {
 
+	// binding names
+	private static final String BINDING_NEXT_BUTTON_TEXT = "nextButtonText";
+	private static final String BINDING_PREV_BUTTON_TEXT = "prevButtonText";
+	private static final String BINDING_STOP_BUTTON_TEXT = "stopButtonText";
+	private static final String BINDING_FADE_DURATION = "fadeDuration";
+	private static final String BINDING_SLIDE_DURATION = "slideDuration";
+
 	// binding default values
 	private static final String NEXT_BUTTON_DEFAULT = ">";
 	private static final String PREV_BUTTON_DEFAULT = "<";
@@ -61,7 +68,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the duration each slide is displayed in seconds
 	 */
 	public float slideDuration() {
-		_slideDuration = Float.parseFloat( valueForStringBinding( "slideDuration", DURATION_DEFAULT ) );
+		_slideDuration = Float.parseFloat( valueForStringBinding( BINDING_SLIDE_DURATION, DURATION_DEFAULT ) );
 		return _slideDuration;
 	}
 
@@ -76,7 +83,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the duration of the fade effect in seconds
 	 */
 	public float fadeDuration() {
-		_fadeDuration = Float.parseFloat( valueForStringBinding( "fadeDuration", FADE_DURATION_DEFAULT ) );
+		_fadeDuration = Float.parseFloat( valueForStringBinding( BINDING_FADE_DURATION, FADE_DURATION_DEFAULT ) );
 		return _fadeDuration;
 	}
 
@@ -91,7 +98,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the text that should be displayed on the stop button
 	 */
 	public String stopButtonText() {
-		_stopButtonText = valueForStringBinding( "stopButtonText", STOP_BUTTON_DEFAULT );
+		_stopButtonText = valueForStringBinding( BINDING_STOP_BUTTON_TEXT, STOP_BUTTON_DEFAULT );
 		return _stopButtonText;
 	}
 
@@ -106,7 +113,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the text that should be displayed on the previous button
 	 */
 	public String prevButtonText() {
-		_prevButtonText = valueForStringBinding( "prevButtonText", PREV_BUTTON_DEFAULT );
+		_prevButtonText = valueForStringBinding( BINDING_PREV_BUTTON_TEXT, PREV_BUTTON_DEFAULT );
 		return _prevButtonText;
 	}
 
@@ -121,7 +128,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the text that should be displayed on the next button
 	 */
 	public String nextButtonText() {
-		_nextButtonText = (String)valueForStringBinding( "nextButtonText", NEXT_BUTTON_DEFAULT );
+		_nextButtonText = (String)valueForStringBinding( BINDING_NEXT_BUTTON_TEXT, NEXT_BUTTON_DEFAULT );
 		return _nextButtonText;
 	}
 
