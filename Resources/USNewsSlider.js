@@ -10,6 +10,7 @@
 */
 var NewsSlider = Class.create();
 NewsSlider.prototype = {
+	
 	/* 
 	* Initializes all global vars and gets the slides from the html
 	* interval: The time each slide is displayed in seconds
