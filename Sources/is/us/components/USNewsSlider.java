@@ -12,7 +12,8 @@ import er.extensions.components.ERXComponent;
  * @binding slides required, List of {@link USNewsSliderSlide} to display in the slide show
  * @binding slideDuration optional, the duration each slide should be displayed in seconds, default is 10.0
  * @binding fadeDuration optional, the duration of the fade effect in seconds, the default is 0.5
- * @binding stopButtonText optional, he text that should be displayed on the stop button, the default is "Stop"
+ * @binding stopButtonText optional, the text that should be displayed on the stop button, the default is "Stop"
+ * @binding startButtonText optional, the text that should be displayed on the start button, the default is "Start"
  * @binding nextButtonText optional, the text that should be displayed on the "next" button, default is ">"
  * @binding prevButtonText optional, the text that should be displayed on the "previous" button, default is "<"
  *  
@@ -25,6 +26,7 @@ public class USNewsSlider extends ERXComponent {
 	private static final String BINDING_NEXT_BUTTON_TEXT = "nextButtonText";
 	private static final String BINDING_PREV_BUTTON_TEXT = "prevButtonText";
 	private static final String BINDING_STOP_BUTTON_TEXT = "stopButtonText";
+	private static final String BINDING_START_BUTTON_TEXT = "startButtonText";
 	private static final String BINDING_FADE_DURATION = "fadeDuration";
 	private static final String BINDING_SLIDE_DURATION = "slideDuration";
 
@@ -32,6 +34,7 @@ public class USNewsSlider extends ERXComponent {
 	private static final String NEXT_BUTTON_DEFAULT = ">";
 	private static final String PREV_BUTTON_DEFAULT = "<";
 	private static final String STOP_BUTTON_DEFAULT = "Stop";
+	private static final String START_BUTTON_DEFAULT = "Start";
 	private static final String FADE_DURATION_DEFAULT = "0.5";
 	private static final String DURATION_DEFAULT = "10";
 
@@ -39,13 +42,9 @@ public class USNewsSlider extends ERXComponent {
 	private float _slideDuration;
 	private float _fadeDuration;
 	private String _stopButtonText;
+	private String _startButtonText;
 	private String _nextButtonText;
 	private String _prevButtonText;
-
-	/** The current slide, used by the WO repetition */
-	public USNewsSliderSlide currentSlide;
-	/** the index of the current slid, used by the WO repetition */
-	public int currentSlideIndex;
 
 	public USNewsSlider( WOContext context ) {
 		super( context );
@@ -55,7 +54,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the parameters to use in javascript when creating an instance of the slide show javascript object.
 	 */
 	public String params() {
-		return slideDuration() + ", " + fadeDuration() + ", '" + stopButtonText() + "', '" + prevButtonText() + "', '" + nextButtonText() + "'";
+		return slideDuration() + ", " + fadeDuration() + ", '" + stopButtonText() + "', '" + startButtonText() + "', '" + prevButtonText() + "', '" + nextButtonText() + "'";
 	}
 
 	/**
@@ -104,6 +103,21 @@ public class USNewsSlider extends ERXComponent {
 	}
 
 	/**
+	 * @param startButtonText the text that should be displayed on the start button
+	 */
+	public void setStartButtonText( String startButtonText ) {
+		_startButtonText = startButtonText;
+	}
+
+	/**
+	 * @return the text that should be displayed on the start button
+	 */
+	public String startButtonText() {
+		_startButtonText = valueForStringBinding( BINDING_START_BUTTON_TEXT, START_BUTTON_DEFAULT );
+		return _startButtonText;
+	}
+
+	/**
 	 * @param prevButtonText the text that should be displayed on the previous button
 	 */
 	public void setPrevButtonText( String prevButtonText ) {
@@ -129,7 +143,7 @@ public class USNewsSlider extends ERXComponent {
 	 * @return the text that should be displayed on the next button
 	 */
 	public String nextButtonText() {
-		_nextButtonText = (String)valueForStringBinding( BINDING_NEXT_BUTTON_TEXT, NEXT_BUTTON_DEFAULT );
+		_nextButtonText = valueForStringBinding( BINDING_NEXT_BUTTON_TEXT, NEXT_BUTTON_DEFAULT );
 		return _nextButtonText;
 	}
 
