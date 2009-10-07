@@ -8,7 +8,7 @@
 * Based on "Accessible JavaScript Newsticker" by Bartelme Design
 * http://www.bartelme.at/journal/archive/accessible_javascript_newsticker
 *
-* Example usage:
+* Usage:
 *
 * <div id="newsSlider">
 * 	<div id="slideContent">
@@ -28,7 +28,7 @@
 * 	<div id="slidePreviousNextButtons"></div>
 * 	<div id="slideStopButton"></div>
 * 	<script>
-* 		var slider = new NewsSlider(5.0, 0.5, 'Stop slide show', '&lt;', '&gt;');
+* 		var slider = new NewsSlider(5.0, 0.5, 'Stop slide show', 'Resume slide show', '&lt;', '&gt;');
 * 		Event.observe(window, "load", function() { slider }, false);
 * 	</script>
 * </div>
@@ -42,17 +42,20 @@ NewsSlider.prototype = {
 	* interval: The time each slide is displayed in seconds
 	* fadeDuration: the duration of the fade effect in seconds
 	* stopText: the text on the stop button
+	* startText: the text on the start button
 	* prevText: the text on the previous slide button
 	* nextText: the text on the next slide button
 	*/
-	initialize: function(interval, fadeDuration, stopText, prevText, nextText)
+	initialize: function(interval, fadeDuration, stopText, startText, prevText, nextText)
 	{
 		this.interval = interval;
 		this.fadeDuration = fadeDuration;
 		this.stopText = stopText;
+		this.startText = startText;
 		this.prevText = prevText;
 		this.nextText = nextText;
 		
+		this.running = true;
 		this.timeout = null;
 		this.loopTimeout = null;
 		this.currentMessage = null;
@@ -73,6 +76,9 @@ NewsSlider.prototype = {
 	
 		this.hideMessages();
 		this.showNextMessage();
+		
+		//Event.observe(this.container, 'mouseover', this.stopSlideShow.bind(this));
+		
   	},
   	/* 
   	* Builds the index links 
@@ -118,19 +124,37 @@ NewsSlider.prototype = {
   	addStopButton: function() {
   		container = $("slideStopButton");
   		
-  		link = document.createElement("a");
-  		link.href = "#";
-  		link.id = "stop";
-  		link.innerHTML = this.stopText;
-  		Event.observe(link, "click", this.stopSlideShow.bind(this), false);
+  		link = $("stop");
+  		if (link == null) {
+	  		link = document.createElement("a");
+	  		link.href = "#";
+	  		link.id = "stop";
+  		}
+  		link.stopObserving();
+  		if (this.running) {
+  			link.innerHTML = this.stopText;
+  			Event.observe(link, "click", this.stopSlideShow.bind(this), false);
+  		}
+  		else {
+  			link.innerHTML = this.startText;
+  			Event.observe(link, "click", this.startSlideShow.bind(this), false);
+  		}
   		container.appendChild(link);
   	},
   	/* 
   	* Stops the slide show
   	*/
   	stopSlideShow: function() {
+  		this.running = false;
+  		this.addStopButton();
   		clearTimeout(this.loopTimeout);
   		clearTimeout(this.timeout);
+  	},
+  	startSlideShow: function() {
+  		this.running = true;
+  		this.addStopButton();
+  		this.fadeMessageOut();		
+		this.loopTimeout = setTimeout(this.showNextMessage.bind(this), this.fadeDuration * 1000);
   	},
   	/* 
   	* Displays the next message
@@ -149,6 +173,7 @@ NewsSlider.prototype = {
 	* index: The index of the slide to display 
 	*/
 	showMessageNumber: function(index) {
+		this.running = true;
 		this.setMessageIndexes(index);
 		this.timeout = setTimeout(this.fadeMessageOut.bind(this), (this.interval - this.fadeDuration) * 1000);
 		this.fadeMessageIn();
@@ -159,10 +184,10 @@ NewsSlider.prototype = {
 	* index: The index of the slide to display
 	*/
 	showMessageNumberInstantly: function(index) {
-		clearTimeout(this.timeout);
-		clearTimeout(this.loopTimeout);
+		this.stopSlideShow();
 		this.fadeMessageOut();		
-		this.loopTimeout = setTimeout(this.showMessageNumber.bind(this, index), this.fadeDuration * 1000);
+		this.setMessageIndexes(index);
+		this.loopTimeout = setTimeout(this.fadeMessageIn.bind(this), this.fadeDuration * 1000);
 	},
 	/* 
 	* Shows the next slide instantly (with fade effect)
@@ -224,7 +249,7 @@ NewsSlider.prototype = {
 		Effect.Fade(this.messages[this.currentMessage], {duration: this.fadeDuration});
 	},
 	/* 
-	* Fades oin the current slide
+	* Fades in the current slide
 	*/
 	fadeMessageIn: function()
 	{
