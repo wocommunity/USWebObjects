@@ -2,6 +2,7 @@ package is.us.util;
 
 import is.us.wo.util.USC;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import org.slf4j.*;
@@ -355,5 +356,45 @@ public class USArrayUtilities {
 		}
 
 		return array;
+	}
+
+	/**
+	 * Searches for an element in an unsorted array
+	 * 
+	 * @param arr array to search through
+	 * @param elementToFind element to find
+	 * @return index of element in the array, if element is not found then -1
+	 * 
+	 * TODO: review
+	 */
+	public static <T> int searchUnsorted( T[] arr, T elementToFind ) {
+		if( (arr == null) || (elementToFind == null) || (arr.length < 1) ) {
+			return -1;
+		}
+		for( int i = 0; i < arr.length; i++ ) {
+			if( arr[i].equals( elementToFind ) ) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Searches for an element in an unsorted array
+	 * 
+	 * @param arr array to resize
+	 * @param newSize new array size
+	 * @return resized array
+	 * 
+	 * TODO: review
+	 */
+	@SuppressWarnings( "unchecked" )
+	public static <T> T[] resize( T[] arr, int newSize ) {
+		if( newSize < 1 ) {
+			return (T[])Array.newInstance( arr.getClass().getComponentType(), 0 );
+		}
+		T[] newArr = (T[])Array.newInstance( arr.getClass().getComponentType(), newSize );
+		System.arraycopy( arr, 0, newArr, 0, arr.length );
+		return newArr;
 	}
 }
