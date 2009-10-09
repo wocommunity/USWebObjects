@@ -1,0 +1,37 @@
+.warningMessages { 
+	margin: 20px 0px 20px 0px;
+	padding: 20px;
+	border: 2px solid #E8E3B2;
+	background: #FFFFD0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.warningMessages ul { 
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.warningMessages li {
+	margin: 4px;
+}
+
+.errorMessages {
+	margin: 20px 0px 20px 0px;
+	padding: 20px;
+	border: 2px solid #DAAEB6;
+	background: #F1CFCC;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.errorMessages ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.errorMessages li {
+	margin: 4px;
+}

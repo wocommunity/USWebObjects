@@ -1,0 +1,9 @@
+<wo:conditional condition="$messages.size">
+	<div class=<wo:string value="$className" /> >
+		<ul>
+			<wo:repetition list="$messages" item="$currentMessage">
+				<li><wo:string value="$currentMessage" /></li>
+			</wo:repetition >
+		</ul>
+	</div>
+</wo:conditional>
