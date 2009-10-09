@@ -5,6 +5,7 @@
 * The content is accessible even though javascript/css is not supported
 *
 * Author: Atli Páll Hafsteinsson <atlip@us.is>
+* ReviewedBy Bjarni Sævarsson <bjarnis@us.is>
 * Based on "Accessible JavaScript Newsticker" by Bartelme Design
 * http://www.bartelme.at/journal/archive/accessible_javascript_newsticker
 *
@@ -36,6 +37,9 @@
 */
 var NewsSlider = Class.create();
 NewsSlider.prototype = {
+
+// FIXME good rule to use only either double or single quotes
+
 	
 	/* 
 	* Initializes all global vars and gets the slides from the html
@@ -61,7 +65,7 @@ NewsSlider.prototype = {
 		this.currentMessage = null;
 		
 		this.container = $("slideContent");
-		this.messages  = $A(this.container.getElementsByTagName("li"));
+		this.messages  = $A(this.container.getElementsByTagName("li")); // FIXME: use prototype getByTag function '$$('li');'
 		this.numberOfMessages = this.messages.length;
 		if (this.numberOfMessages == 0)
 		{
@@ -72,12 +76,12 @@ NewsSlider.prototype = {
 		this.buildIndex();
 		this.addPreviousNextButtons();
 		this.addStopButton();
-		this.messageIndexes = $A($("slideIndex").getElementsByTagName("a"));
+		this.messageIndexes = $A($("slideIndex").getElementsByTagName("a")); // FIXME: use prototype getByTag function '$$('li');'
 	
 		this.hideMessages();
 		this.showNextMessage();
 		
-		//Event.observe(this.container, 'mouseover', this.stopSlideShow.bind(this));
+		//Event.observe(this.container, 'mouseover', this.stopSlideShow.bind(this)); // FIXME: should'nt this be deleted?
 		
   	},
   	/* 
@@ -87,11 +91,12 @@ NewsSlider.prototype = {
   		container = $("slideIndex");
   		
   		for (i = 0; i < this.numberOfMessages; i++) {
+	  		// FIXME: use prototype element constructor 'var ele = new Element('div', { attr: value, ... })' 
   			span = document.createElement("span");
   			link = document.createElement("a");
   			link.href = "#";
   			link.id = "index_" + i;
-  			link.innerHTML = i + 1;
+  			link.innerHTML = i + 1; // FIXME: use prototype's element update function '$(“some_id”).update(...);'
   			Event.observe(link, "click", this.showMessageNumberInstantly.bind(this, i), false);
   			
   			span.appendChild(link);
@@ -104,17 +109,18 @@ NewsSlider.prototype = {
   	addPreviousNextButtons: function() {
   		container = $("slidePreviousNextButtons");
   		
+  		// FIXME: use prototype element constructor 'var ele = new Element('div', { attr: value, ... })'
   		prev = document.createElement("a");
   		prev.href = "#";
   		prev.id = "prev";
-  		prev.innerHTML = this.prevText;
+  		prev.innerHTML = this.prevText; // FIXME: use prototype's element update function '$(“some_id”).update(...);'
   		Event.observe(prev, "click", this.showPreviousMessageInstantly.bind(this), false);
   		container.appendChild(prev);
   			
   		next = document.createElement("a");
   		next.href = "#";
   		next.id = "next";
-  		next.innerHTML = this.nextText;
+  		next.innerHTML = this.nextText; // FIXME: use prototype's element update function '$(“some_id”).update(...);'
   		Event.observe(next, "click", this.showNextMessageInstantly.bind(this), false);
   		container.appendChild(next);
   	},
@@ -126,17 +132,18 @@ NewsSlider.prototype = {
   		
   		link = $("stop");
   		if (link == null) {
+  			// FIXME: use prototype element constructor 'var ele = new Element('div', { attr: value, ... })'
 	  		link = document.createElement("a");
 	  		link.href = "#";
 	  		link.id = "stop";
   		}
   		link.stopObserving();
   		if (this.running) {
-  			link.innerHTML = this.stopText;
+  			link.innerHTML = this.stopText; // FIXME: use prototype's element update function '$(“some_id”).update(...);'
   			Event.observe(link, "click", this.stopSlideShow.bind(this), false);
   		}
   		else {
-  			link.innerHTML = this.startText;
+  			link.innerHTML = this.startText; // FIXME: use prototype's element update function '$(“some_id”).update(...);'
   			Event.observe(link, "click", this.startSlideShow.bind(this), false);
   		}
   		container.appendChild(link);
@@ -270,16 +277,17 @@ NewsSlider.prototype = {
 	*/
 	showError: function()
 	{
-		if (this.container.getElementsByTagName("ul").length == 0)
+		
+		if (this.container.getElementsByTagName("ul").length == 0) // FIXME: use prototype getByTag function '$$('li');'
 		{
-			this.list = document.createElement("ul");
+			this.list = document.createElement("ul");// FIXME: use prototype element constructor 'var ele = new Element('div', { attr: value, ... })'
 			this.container.appendChild(this.list);
 		} else {
-			this.list = this.container.getElementsByTagName("ul")[0];
+			this.list = this.container.getElementsByTagName("ul")[0];// FIXME: use prototype getByTag function '$$('li');'
 		}
-		this.errorMessage = document.createElement("li");
+		this.errorMessage = document.createElement("li");// FIXME: use prototype element constructor 'var ele = new Element('div', { attr: value, ... })'
 		this.errorMessage.className = "error";
-		this.errorMessage.innerHTML = "Could not retrieve data";
+		this.errorMessage.innerHTML = "Could not retrieve data"; // FIXME: use prototype's element update function '$(“some_id”).update(...);'
 		this.list.appendChild(this.errorMessage);
 	}
 }
