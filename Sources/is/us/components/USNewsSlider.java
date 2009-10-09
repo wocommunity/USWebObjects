@@ -5,7 +5,6 @@ import com.webobjects.appserver.*;
 import er.ajax.AjaxUtils;
 import er.extensions.components.ERXComponent;
 
-//TODO: needs review  JIRA VEF-494
 /**
  * Component to display news (or other info) in slide show
  *
@@ -18,7 +17,7 @@ import er.extensions.components.ERXComponent;
  * @binding prevButtonText optional, the text that should be displayed on the "previous" button, default is "<"
  *  
  * @author Atli Páll Hafsteinsson <atlip@us.is>
- *
+ * @reviewedBy BjarniS
  */
 public class USNewsSlider extends ERXComponent {
 

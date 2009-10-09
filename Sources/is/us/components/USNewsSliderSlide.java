@@ -1,11 +1,10 @@
 package is.us.components;
 
-//TODO: needs review  JIRA VEF-494
 /**
  * Class that contains data for a slide for the news slider component
  * 
  * @author Atli Páll Hafsteinsson <atlip@us.is>
- *
+ * @reviewedBy BjarniS
  */
 public class USNewsSliderSlide {
 
