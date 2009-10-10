@@ -255,11 +255,19 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Indicates if the requesting user agent supports Gzip response compression
+	 * Indicates if the response has a content type of HTML.
 	 */
 	public static boolean contentTypeHTML( WOResponse response ) {
 		String s = contentType( response );
 		return s != null && s.contains( MIME_TYPE_HTML );
+	}
+
+	/**
+	 * Indicates if the response has a content type of XML.
+	 */
+	public static boolean contentTypeXML( WOResponse response ) {
+		String s = contentType( response );
+		return s != null && s.contains( MIME_TYPE_XML );
 	}
 
 	/**
