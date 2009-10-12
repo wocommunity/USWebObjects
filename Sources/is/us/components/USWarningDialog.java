@@ -6,7 +6,6 @@ import com.webobjects.appserver.WOContext;
 
 import er.extensions.components.ERXComponent;
 
-// TODO: needs review
 /**
  * Component to display a list of warning/error messages
  * 
@@ -14,7 +13,7 @@ import er.extensions.components.ERXComponent;
  * @binding type optional, The type of messages "error" or "warning". "warning" is default.
  * 
  * @author Atli Páll Hafsteinsson <atlip@us.is>
- * 
+ * @reviewedby Logi Helgu at Oct 12, 2009( see JIRA issue INN-733 )
  */
 public class USWarningDialog extends ERXComponent {
 
