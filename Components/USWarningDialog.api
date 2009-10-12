@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wodefinitions>
+        <wo class="USWarningDialog.java" wocomponentcontent="false">
+
+        <binding name="messages"/>
+        <validation message="'messages' is a required binding.">
+            <unbound name="messages"/>
+        </validation>
+    <binding name="type"/>
+    </wo>
+</wodefinitions>
