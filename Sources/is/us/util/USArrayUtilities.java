@@ -358,6 +358,7 @@ public class USArrayUtilities {
 		return array;
 	}
 
+	// TODO A handful of unit tests would look good for these utility functions ;)
 	/**
 	 * Searches for an element in an unsorted array
 	 * 
@@ -365,7 +366,7 @@ public class USArrayUtilities {
 	 * @param elementToFind element to find
 	 * @return index of element in the array, if element is not found then -1
 	 * 
-	 * TODO: review
+	 * @reviewedby Logi Helgu at Oct 13, 2009( see JIRA issue INN-739 )
 	 */
 	public static <T> int searchUnsorted( T[] arr, T elementToFind ) {
 		if( (arr == null) || (elementToFind == null) || (arr.length < 1) ) {
@@ -379,6 +380,8 @@ public class USArrayUtilities {
 		return -1;
 	}
 
+	// TODO Javadoc description wrong
+	// TODO Might want to state that this uses Sysstem.arraycopy since that function throws exceptions and more. 
 	/**
 	 * Searches for an element in an unsorted array
 	 * 
@@ -386,7 +389,7 @@ public class USArrayUtilities {
 	 * @param newSize new array size
 	 * @return resized array
 	 * 
-	 * TODO: review
+	 * @reviewedby Logi Helgu at Oct 13, 2009( see JIRA issue INN-739 )
 	 */
 	@SuppressWarnings( "unchecked" )
 	public static <T> T[] resize( T[] arr, int newSize ) {
