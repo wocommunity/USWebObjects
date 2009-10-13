@@ -358,7 +358,7 @@ public class USArrayUtilities {
 		return array;
 	}
 
-	// TODO A handful of unit tests would look good for these utility functions ;)
+	// TODO A handful of unit tests would look good for these utility functions ;) -> there are unit tests in Tests.is.us.util.TestUSArrayUtilities :)
 	/**
 	 * Searches for an element in an unsorted array
 	 * 
@@ -381,13 +381,20 @@ public class USArrayUtilities {
 	}
 
 	// TODO Javadoc description wrong
-	// TODO Might want to state that this uses Sysstem.arraycopy since that function throws exceptions and more. 
+	// TODO Might want to state that this uses Sysstem.arraycopy since that function throws exceptions and more. -> added exception comments instead
 	/**
-	 * Searches for an element in an unsorted array
+	 * Resizes a array.
 	 * 
 	 * @param arr array to resize
 	 * @param newSize new array size
 	 * @return resized array
+	 * @exception  IndexOutOfBoundsException  if copying would cause
+	 *               access of data outside array bounds.
+	 * @exception  ArrayStoreException  if an element in the <code>src</code>
+	 *               array could not be stored into the <code>dest</code> array
+	 *               because of a type mismatch.
+	 * @exception  NullPointerException if either <code>src</code> or
+	 *               <code>dest</code> is <code>null</code>.
 	 * 
 	 * @reviewedby Logi Helgu at Oct 13, 2009( see JIRA issue INN-739 )
 	 */
