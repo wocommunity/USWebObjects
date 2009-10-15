@@ -380,8 +380,6 @@ public class USArrayUtilities {
 		return -1;
 	}
 
-	// TODO Javadoc description wrong
-	// TODO Might want to state that this uses Sysstem.arraycopy since that function throws exceptions and more. -> added exception comments instead
 	/**
 	 * Resizes a array.
 	 * 

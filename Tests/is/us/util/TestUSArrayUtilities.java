@@ -11,11 +11,11 @@ public class TestUSArrayUtilities {
 		String[] testArr = new String[2];
 		testArr[0] = "index 0";
 		testArr[1] = "index 1";
-		assertEquals( USArrayUtilities.searchUnsorted( testArr, "index 1" ), 1 );
-		assertEquals( USArrayUtilities.searchUnsorted( testArr, "index 2" ), -1 );
-		assertEquals( USArrayUtilities.searchUnsorted( null, "index 2" ), -1 );
-		assertEquals( USArrayUtilities.searchUnsorted( testArr, null ), -1 );
-		assertEquals( USArrayUtilities.searchUnsorted( null, null ), -1 );
+		assertEquals( 1, USArrayUtilities.searchUnsorted( testArr, "index 1" ) );
+		assertEquals( -1, USArrayUtilities.searchUnsorted( testArr, "index 2" ) );
+		assertEquals( -1, USArrayUtilities.searchUnsorted( null, "index 2" ) );
+		assertEquals( -1, USArrayUtilities.searchUnsorted( testArr, null ) );
+		assertEquals( -1, USArrayUtilities.searchUnsorted( null, null ) );
 	}
 
 	@Test
@@ -25,7 +25,7 @@ public class TestUSArrayUtilities {
 		oldArr[1] = "index 1";
 		String[] newArr = USArrayUtilities.resize( oldArr, 4 );
 
-		assertEquals( newArr.length, 4 );
+		assertEquals( 4, newArr.length );
 		assertEquals( oldArr[0], "index 0" );
 		assertEquals( oldArr[1], "index 1" );
 
