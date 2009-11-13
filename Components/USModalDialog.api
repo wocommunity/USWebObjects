@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wodefinitions>
+    <wo class="USModalDialog" wocomponentcontent="false">    <binding name="linkString"/>
+        <validation message="'linkString' is a required binding.">
+            <unbound name="linkString"/>
+        </validation>
+    <binding name="title"/>
+    <binding name="linkIcon"/>
+    <binding name="linkIconMime"/>
+    <binding name="id"/>
+        <validation message="'id' is a required binding.">
+            <unbound name="id"/>
+        </validation>
+    <binding name="width"/>
+        <binding name="height"/>
+    </wo>
+</wodefinitions>
