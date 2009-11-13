@@ -45,6 +45,7 @@ public class USC {
 	public static final String NAME_KEY = "name";
 	public static final String CODE_KEY = "code";
 	public static final String TRANSDATE_KEY = "transdate";
+	public static final String USER_KEY = "user";
 
 	public static final NSArray<EOSortOrdering> PERMNO_ASC_SORT_ORDERINGS = new NSArray<EOSortOrdering>( new EOSortOrdering( PERMNO_KEY, EOSortOrdering.CompareAscending ) );
 	public static final NSArray<EOSortOrdering> NAME_ASC_SORT_ORDERINGS = new NSArray<EOSortOrdering>( new EOSortOrdering( NAME_KEY, EOSortOrdering.CompareCaseInsensitiveAscending ) );
