@@ -1,0 +1,33 @@
+.tooltip{ 
+	width: 200px; 
+	color:#FFF; 
+	font:bold 11px/1.3 Arial,sans-serif; 
+	text-decoration:none;
+	text-align:center
+}
+
+.tooltipLink{
+	border: 1px solid gray;
+	color: white;
+	font-weight: bold;
+	padding: 0px 5px 0px 5px;
+	margin-right: 3px;
+	background-color: #AAAAAA;
+}
+
+a.tooltipLink:hover{
+	color: black;
+	cursor: help;
+	background-color: white;
+}
+
+fieldset .tooltipLink{ 
+	right: 15px;
+	position: absolute;
+}
+
+@media print {
+	.tooltipLink{
+		display: none;
+	}
+}
