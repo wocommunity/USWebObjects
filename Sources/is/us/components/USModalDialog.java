@@ -8,7 +8,6 @@ import com.webobjects.foundation.*;
 import er.ajax.AjaxUtils;
 import er.extensions.components.ERXComponent;
 
-//TODO: needs review
 /**
  * USModalDialog is a modal dialog window based on ModalBox (see below for link).
  * Its similar to Wonders AjaxModalDialog but it does not use ajax to get the content
@@ -19,7 +18,7 @@ import er.extensions.components.ERXComponent;
  * @see <a href="http://code.google.com/p/modalbox/">Google Group</a>
  * 
  * @author Atli Páll Hafsteinsson <atlip@us.is>
- *
+ * @reviewedby Logi Helgu at Nov 16, 2009( see JIRA issue INN-748 )
  */
 public class USModalDialog extends ERXComponent {
 
@@ -167,6 +166,8 @@ public class USModalDialog extends ERXComponent {
 		return "Modalbox.show($('" + id() + "'), {" + params.toString() + "});";
 	}
 
+	// TODO You can set useDefaultComponentJavascript and useDefaultComponentCSS to return true and have the .js and .css files ( with the same name as this component ) in the Resouces folder and then you don't have to link the files
+
 	@Override
 	protected NSArray<String> additionalCSSFiles() {
 		return new NSMutableArray<String>( new String[] { "modalbox.css" } );
@@ -177,6 +178,7 @@ public class USModalDialog extends ERXComponent {
 		return new NSMutableArray<String>( new String[] { "modalbox.js" } );
 	}
 
+	// TODO Was this a fix for loading the .js files ?  At least there should be some description why this is here ;)
 	@Override
 	public void appendToResponse( WOResponse response, WOContext context ) {
 		AjaxUtils.addScriptResourceInHead( context, response, "prototype.js" );
