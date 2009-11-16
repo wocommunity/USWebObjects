@@ -166,21 +166,22 @@ public class USModalDialog extends ERXComponent {
 		return "Modalbox.show($('" + id() + "'), {" + params.toString() + "});";
 	}
 
-	// TODO You can set useDefaultComponentJavascript and useDefaultComponentCSS to return true and have the .js and .css files ( with the same name as this component ) in the Resouces folder and then you don't have to link the files
-
 	@Override
 	protected NSArray<String> additionalCSSFiles() {
+		// Using the css provided by modalbox
 		return new NSMutableArray<String>( new String[] { "modalbox.css" } );
 	}
 
 	@Override
 	protected NSArray<String> additionalJavascriptFiles() {
+		// using the js provided by modalbox
 		return new NSMutableArray<String>( new String[] { "modalbox.js" } );
 	}
 
-	// TODO Was this a fix for loading the .js files ?  At least there should be some description why this is here ;)
 	@Override
 	public void appendToResponse( WOResponse response, WOContext context ) {
+		// The prototype js files are in the AJAX framework, so we need to use 
+		// the method from AjaxUtils to load them correctly
 		AjaxUtils.addScriptResourceInHead( context, response, "prototype.js" );
 		AjaxUtils.addScriptResourceInHead( context, response, "effects.js" );
 		super.appendToResponse( response, context );
