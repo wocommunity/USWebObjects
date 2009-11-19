@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wodefinitions>
+    <wo class="USTooltip" wocomponentcontent="false">
+
+ <binding name="value"/>
+        <binding name="hideCSSStyle"/>
+        <binding name="url"/>
+    <binding name="target"/>
+    </wo>
+</wodefinitions>

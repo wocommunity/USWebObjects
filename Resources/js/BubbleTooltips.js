@@ -6,7 +6,7 @@ var bubbleTooltipsLoaded = true;
 
 function enableTooltips( id, tag ) {
 	var links,i,h;
-	
+
 	if( !document.getElementById || !document.getElementsByTagName )
 		return;
 
@@ -15,17 +15,18 @@ function enableTooltips( id, tag ) {
 	h.setAttribute("id","btc");
 	h.style.position="absolute";
 	document.getElementsByTagName("body")[0].appendChild(h);
-
 	if(id==null) {
 	   if(tag==null) 
 	        links=document.getElementsByTagName("a");
 	   else links=document.getElementsByTagName(tag);
 	}
 	else {
-	    if(tag==null)
+	    if(tag==null) {
 	        links=document.getElementById(id).getElementsByTagName("a");
-	   else
+	    }
+	    else {
 	        links=document.getElementById(id).getElementsByTagName(tag);
+	    }
 	}
 
 	for(i=0;i<links.length;i++){
