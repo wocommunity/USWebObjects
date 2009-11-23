@@ -10,16 +10,15 @@ function enableTooltips( id, tag ) {
 	if( !document.getElementById || !document.getElementsByTagName )
 		return;
 
-	//h=document.createElement("span");
-	//h.id="btc";
-	//h.setAttribute("id","btc");
-	//h.style.position="absolute";
+	h=document.createElement("span");
+	h.id="btc";
+	h.setAttribute("id","btc");
+	h.style.position="absolute";
 	
 	/* IE wont like this anymore */
-	// document.getElementsByTagName("body")[0].appendChild(h);
-	//alert( document.getElementsByTagName("body"));
-//alert( document.getElementById(id) );
-	//document.document.getElementById(id)[0].appendChild(h);
+	Event.observe(window, 'load', function() { 
+	 document.getElementsByTagName("body")[0].appendChild(h);
+	});
 	
 	if(id==null) {
 	   if(tag==null) 
@@ -90,11 +89,8 @@ function Locate(e){
 	if(e==null) e=window.event;
 	if(e.pageX || e.pageY){
 	    posx=e.pageX; posy=e.pageY;
-	    /* the good browsers  */
-    	document.getElementById("btc").style.top=(posy-22)+"px";
-		document.getElementById("btc").style.left=(posx-254)+"px";
 	    }
-	else if(e.clientX || e.clientY) {
+	else if(e.clientX || e.clientY){
 	    if(document.documentElement.scrollTop){
 	        posx=e.clientX+document.documentElement.scrollLeft;
 	        posy=e.clientY+document.documentElement.scrollTop;
@@ -103,9 +99,7 @@ function Locate(e){
 	        posx=e.clientX+document.body.scrollLeft;
 	        posy=e.clientY+document.body.scrollTop;
 	        }
-	        /* ie */
-    	document.getElementById("btc").style.top=(posy-40)+"px";
-		document.getElementById("btc").style.left=(posx-254)+"px";
 	    }
-
+	document.getElementById("btc").style.top=(posy+6)+"px";
+	document.getElementById("btc").style.left=(posx-44)+"px";
 }
