@@ -1,8 +1,9 @@
 package is.us.components;
 
-import com.webobjects.appserver.WOContext;
+import com.webobjects.appserver.*;
 import com.webobjects.foundation.*;
 
+import er.ajax.AjaxUtils;
 import er.extensions.components.ERXComponent;
 import er.extensions.foundation.ERXStringUtilities;
 
@@ -40,6 +41,15 @@ public class USTooltip extends ERXComponent {
 		NSMutableArray<String> a = new NSMutableArray<String>();
 		a.addObject( "js/BubbleTooltips.js" );
 		return a;
+	}
+
+	// TODO Create a cover for this ( also in USModalDialog )
+	@Override
+	public void appendToResponse( WOResponse response, WOContext context ) {
+		// The prototype js files are in the AJAX framework, so we need to use 
+		// the method from AjaxUtils to load them correctly
+		AjaxUtils.addScriptResourceInHead( context, response, "prototype.js" );
+		super.appendToResponse( response, context );
 	}
 
 	/**
