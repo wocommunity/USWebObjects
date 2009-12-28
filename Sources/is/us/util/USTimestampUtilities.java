@@ -1,7 +1,11 @@
 package is.us.util;
 
-import java.text.*;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import com.webobjects.foundation.NSTimestamp;
 
@@ -35,8 +39,9 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * This method will normalize an NSTimestamp to the beginning of the month, i.e., creates a timestamp set to midnight on the first day of the month.
-	 *
+	 * This method will normalize an NSTimestamp to the beginning of the month,
+	 * i.e., creates a timestamp set to midnight on the first day of the month.
+	 * 
 	 * @param timestamp The timestamp to normalize
 	 */
 	public static NSTimestamp normalizeTimestampForMonth( NSTimestamp timestamp ) {
@@ -66,7 +71,7 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * Normalizes a timestamp to the minute, that is "removes" the seconds 
+	 * Normalizes a timestamp to the minute, that is "removes" the seconds
 	 */
 	public static NSTimestamp normalizeTimestampToTheMinute( NSTimestamp oldTimestamp ) {
 		GregorianCalendar calendar = (GregorianCalendar)GregorianCalendar.getInstance();
@@ -79,7 +84,7 @@ public class USTimestampUtilities {
 
 	/**
 	 * ???
-	 *  
+	 * 
 	 * @return
 	 */
 	public static NSTimestamp beginningOfLastMonth() {
@@ -87,8 +92,8 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * Indicates if the two given timestamps are in the same day (midnight to midnight).
-	 * If either of the arguments are null, then false is returned.
+	 * Indicates if the two given timestamps are in the same day (midnight to
+	 * midnight). If either of the arguments are null, then false is returned.
 	 */
 	public static boolean inSameDay( NSTimestamp t1, NSTimestamp t2 ) {
 
@@ -102,7 +107,8 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * Indicates if the given timestamp is within the given period, including the start of the period (not the end).
+	 * Indicates if the given timestamp is within the given period, including
+	 * the start of the period (not the end).
 	 */
 	public static boolean inPeriod( NSTimestamp timestamp, NSTimestamp startOfPeriod, NSTimestamp endOfPeriod ) {
 
@@ -129,7 +135,8 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * Returns the timestamp normalized to the beginning of Monday of last week. If invoked on a Monday.
+	 * Returns the timestamp normalized to the beginning of Monday of last week.
+	 * If invoked on a Monday.
 	 */
 	public static NSTimestamp mondayOfLastWeek() {
 		NSTimestamp now = normalizeTimestampToMidnight( new NSTimestamp() );
@@ -240,12 +247,13 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * Small utility, when using USDate field you do not get the time and when time
-	 * is a part of composite key 00:00:00 is not a option, so this returns the date
-	 * that is binded with USDatefield and returns it with system time.  
+	 * Small utility, when using USDate field you do not get the time and when
+	 * time is a part of composite key 00:00:00 is not a option, so this returns
+	 * the date that is binded with USDatefield and returns it with system time.
 	 * BUT there must be another/better way to do this.
 	 * 
-	 * @return {@link NSTimestamp} with the current time( hour, minute, second ) added
+	 * @return {@link NSTimestamp} with the current time( hour, minute, second )
+	 *         added
 	 */
 	public static NSTimestamp dateWithTime( NSTimestamp date ) {
 		// Rename setTimeInTimestamp
@@ -254,7 +262,9 @@ public class USTimestampUtilities {
 	}
 
 	/**
-	 * Converts
+	 * Creates an NSTimestamp given a string and a format string.
+	 * 
+	 * @return
 	 */
 	public static NSTimestamp toNSTimestamp( String dateAndTimeString, String formatString ) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat( formatString );
