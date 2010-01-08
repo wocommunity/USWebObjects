@@ -1,4 +1,5 @@
 TEXT: WOText {
 	value = value;
 	class = "swlargertext";
+	id = uniqueID;
 }
