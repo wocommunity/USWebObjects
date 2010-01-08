@@ -172,11 +172,6 @@ public class USMailSender {
 	/**
 	 * Sends one copy of the email to each recipient.
 	 */
-	public static void sendInMultipleEmails( String from, NSArray<String> recipients, String emailSubject, String emailContent, NSDictionary<String, NSData> attachments ) {
-		for( String emailAddress : recipients ) {
-			composeEmail( from, new NSArray<String>( emailAddress ), emailSubject, emailContent, attachments );
-		}
-	}
 
 	public static void composeEmail( String fromEmail, NSArray<String> toAddresses, String subject, String content, String fileName, NSData fileData ) {
 
