@@ -2,22 +2,35 @@ package is.us.util;
 
 import is.us.wo.util.USC;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.util.Random;
 
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.webobjects.appserver.WOApplication;
-import com.webobjects.foundation.*;
+import com.webobjects.foundation.NSArray;
+import com.webobjects.foundation.NSData;
+import com.webobjects.foundation.NSDictionary;
+import com.webobjects.foundation.NSPathUtilities;
 
-import er.javamail.*;
+import er.javamail.ERMailDataAttachment;
+import er.javamail.ERMailDeliveryPlainText;
 
 /**
  * USMailSender is a very simple class for sending email.
- *
+ * 
  * @author Hugi Þórðarson
  */
 
@@ -33,19 +46,24 @@ public class USMailSender {
 	private USMailSender() {}
 
 	/**
-	 * Composes an email message with the given parameters and sends it immediately.
-	 * You can specify either a plaintext message body, an HTML message body or both.
+	 * Composes an email message with the given parameters and sends it
+	 * immediately. You can specify either a plaintext message body, an HTML
+	 * message body or both.
 	 * 
 	 * Uses the default mail server specified in the SoloWeb system's settings.
-	 *
+	 * 
 	 * @param from The senders email address
-	 * @param to An NSArray containing the recipients' email addresses as strings.
-	 * @param cc An NSArray containing the cc'd recipients' email addresses as strings.
-	 * @param bcc An NSArray containing the bcc'd recipients' email addresses as strings.
+	 * @param to An NSArray containing the recipients' email addresses as
+	 *        strings.
+	 * @param cc An NSArray containing the cc'd recipients' email addresses as
+	 *        strings.
+	 * @param bcc An NSArray containing the bcc'd recipients' email addresses as
+	 *        strings.
 	 * @param subject The message subject
 	 * @param plainTextBody The message's plain text body.
 	 * @param htmlBody The message's HTML body.
-	 * @param attachmentFilePaths An NSArray of Strings containing paths to files to attach to the letter.
+	 * @param attachmentFilePaths An NSArray of Strings containing paths to
+	 *        files to attach to the letter.
 	 */
 	public static void composeEmailWithAlternateTextAndAttachments( String from, NSArray<String> to, NSArray<String> cc, NSArray<String> bcc, String subject, String plaintextBody, String htmlBody, NSArray<String> attachmentFilePaths ) {
 
@@ -120,15 +138,19 @@ public class USMailSender {
 	}
 
 	/**
-	* Composes an email message with the given parameters and sends it immediately.
-	 * You can specify either a plaintext message body, an HTML message body or both.
+	 * Composes an email message with the given parameters and sends it
+	 * immediately. You can specify either a plaintext message body, an HTML
+	 * message body or both.
 	 * 
 	 * Uses the default mail server specified in the SoloWeb system's settings.
-	 *
+	 * 
 	 * @param from The senders email address
-	 * @param to An NSArray containing the recipients' email addresses as strings.
-	 * @param cc An NSArray containing the cc'd recipients' email addresses as strings.
-	 * @param bcc An NSArray containing the bcc'd recipients' email addresses as strings.
+	 * @param to An NSArray containing the recipients' email addresses as
+	 *        strings.
+	 * @param cc An NSArray containing the cc'd recipients' email addresses as
+	 *        strings.
+	 * @param bcc An NSArray containing the bcc'd recipients' email addresses as
+	 *        strings.
 	 * @param subject The message subject
 	 * @param plainTextBody The message's plain text body.
 	 * @param htmlBody The message's HTML body.
@@ -166,6 +188,15 @@ public class USMailSender {
 		}
 		catch( Exception e ) {
 			logger.error( "Failed to send email...", e );
+		}
+	}
+
+	/**
+	 * Sends one copy of the email to each recipient.
+	 */
+	public static void sendInMultipleEmails( String from, NSArray<String> recipients, String emailSubject, String emailContent, NSDictionary<String, NSData> attachments ) {
+		for( String emailAddress : recipients ) {
+			composeEmail( from, new NSArray<String>( emailAddress ), emailSubject, emailContent, attachments );
 		}
 	}
 
