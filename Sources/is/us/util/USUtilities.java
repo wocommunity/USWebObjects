@@ -365,4 +365,17 @@ public class USUtilities {
 
 		return template;
 	}
+
+	/**
+     * Set the values for all keys in the target object.
+     * 
+     * @param targetObject
+     * @param parameters
+     */
+    public static void takeValuesForKeyPaths( NSKeyValueCoding targetObject, NSDictionary<String, Object> parameters ) {
+    
+    	for( String key : parameters.allKeys() ) {
+    		targetObject.takeValueForKey( parameters.objectForKey( key ), key );
+    	}
+    }
 }
