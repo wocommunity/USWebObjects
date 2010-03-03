@@ -1,5 +1,5 @@
 <project name="USWebObjects" default="build" basedir=".">
-	<target name="build" depends="init.build,build.woframework,javaclient,package" />
+	<target name="build" depends="init.build,build.woframework" />
 
 	<target name="install" depends="init.install,build.woframework,javaclient" />
 
