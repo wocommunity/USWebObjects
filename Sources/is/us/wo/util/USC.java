@@ -150,6 +150,10 @@ public class USC {
 	public static final String REGGROUP_PRIVATE_NUMBERS = "N2";
 	public static final String REGGROUP_PRIVATE_NUMBERS_LIGHTWEIGHT = "N10";
 
+	// Cstn
+	public static final String STATION_NUMBERS_REGISTRARS = "R";
+	public static final String STATION_NUMBERS_INSPECTORS = "S";
+
 	// Cfue
 	public static final String FUEL_NO_ENGINE = "0"; //	Vélarlaus
 	public static final String FUEL_GASOLINE = "1"; //	Bensín
