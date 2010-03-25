@@ -173,19 +173,26 @@ public class USArrayUtilities {
 	/**
 	 * Filters an array, so that only the first entry with a distinct value is used.
 	 * 
-	 * @param vehiArray An array containing Vehi objects to filter. May contain raw rows (only permno and vehicledate are required).
+	 * @param array And array containing objects implementing KVC.
+	 * @param keypath The keypath for the unique value in the returned array. For example, a vehicle's permno.
+	 * @param sortOrderings The sortorderings to use.
+	 * 
+	 * Example:
+	 * To filter an array of VEHI objects to get only the newest record for each vehicledate.
+	 * 
+	 * filterArrayForUniqueRecords( vehicles, Vehi.PERMNO, Vehi.VEHICLEDATE.descs() )
 	 *
 	 * @author Hugi Þórðarson
 	 */
-	public static NSArray<? extends NSKeyValueCoding> filterArrayForUniqueRecords( NSArray<? extends NSKeyValueCoding> originalArray, String keyPath, NSArray<EOSortOrdering> sortOrderings ) {
+	public static NSArray<? extends NSKeyValueCoding> filterArrayForUniqueRecords( NSArray<? extends NSKeyValueCoding> array, String keypath, NSArray<EOSortOrdering> sortOrderings ) {
 
-		NSArray<? extends NSKeyValueCoding> sortedArray = EOSortOrdering.sortedArrayUsingKeyOrderArray( originalArray, sortOrderings );
+		NSArray<? extends NSKeyValueCoding> sortedArray = EOSortOrdering.sortedArrayUsingKeyOrderArray( array, sortOrderings );
 		NSMutableArray<NSKeyValueCoding> resultArray = new NSMutableArray();
 
 		String lastAddedValue = null;
 
 		for( NSKeyValueCoding v : sortedArray ) {
-			String nextValue = (String)v.valueForKey( keyPath );
+			String nextValue = (String)v.valueForKey( keypath );
 
 			if( !nextValue.equals( lastAddedValue ) ) {
 				resultArray.addObject( v );
