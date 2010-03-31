@@ -180,14 +180,17 @@ public class USArrayUtilities {
 	 * Example:
 	 * To filter an array of VEHI objects to get only the newest record for each vehicledate.
 	 * 
-	 * filterArrayForUniqueRecords( vehicles, Vehi.PERMNO, Vehi.VEHICLEDATE.descs() )
+	 * filterArrayForUniqueRecords( vehicles, Vehi.PERMNO, Vehi.VEHICLEDATE.desc() )
 	 *
 	 * @author Hugi Þórðarson
 	 */
 	public static NSArray<? extends NSKeyValueCoding> filterArrayForUniqueRecords( NSArray<? extends NSKeyValueCoding> array, String keypath, NSArray<EOSortOrdering> sortOrderings ) {
 
-		NSArray<? extends NSKeyValueCoding> sortedArray = EOSortOrdering.sortedArrayUsingKeyOrderArray( array, sortOrderings );
-		NSMutableArray<NSKeyValueCoding> resultArray = new NSMutableArray();
+		NSArray<? extends NSKeyValueCoding> sortedArray = array;
+		if( sortOrderings != null ) {
+			sortedArray = EOSortOrdering.sortedArrayUsingKeyOrderArray( array, sortOrderings );
+		}
+		NSMutableArray<NSKeyValueCoding> resultArray = new NSMutableArray<NSKeyValueCoding>();
 
 		String lastAddedValue = null;
 
