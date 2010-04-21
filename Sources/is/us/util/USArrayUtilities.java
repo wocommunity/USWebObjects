@@ -415,39 +415,4 @@ public class USArrayUtilities {
 		System.arraycopy( arr, 0, newArr, 0, arr.length );
 		return newArr;
 	}
-
-	public static String humanReadableList( List<?> list ) {
-		StringBuilder b = new StringBuilder();
-
-		for( int i = 0; i < list.size(); i++ ) {
-			Object o = list.get( i );
-
-			b.append( o );
-
-			if( i == list.size() - 2 ) {
-				b.append( " og " );
-			}
-			else if( i < list.size() - 2 ) {
-				b.append( ", " );
-			}
-
-		}
-		/*
-		int size = list.size();
-		int i = 0;
-		
-		for( Object o : list ) {
-			i++;
-			b.append( o );
-			if( i <= size ) {
-				b.append( ", " );
-			}
-			if( i <= size - 1 ) {
-				b.append( " og " );
-			}
-		}
-		*/
-
-		return b.toString();
-	}
 }
