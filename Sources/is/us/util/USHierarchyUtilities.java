@@ -175,7 +175,8 @@ public class USHierarchyUtilities {
 		NSArray<USHierarchy> everyParentNode = everyParentNode( anObject, true );
 
 		for( USHierarchy nextLevel : everyParentNode ) {
-			Object returnValue = nextLevel.valueForKeyPath( keyPath );
+			//			Object returnValue = nextLevel.valueForKeyPath( keyPath );
+			Object returnValue = NSKeyValueCodingAdditions.Utility.valueForKeyPath( nextLevel, keyPath );
 
 			if( returnValue != null ) {
 				return returnValue;

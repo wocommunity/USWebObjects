@@ -1,6 +1,5 @@
 package is.us.util;
 
-import com.webobjects.eocontrol.EOEnterpriseObject;
 import com.webobjects.foundation.NSArray;
 
 /**
@@ -9,7 +8,7 @@ import com.webobjects.foundation.NSArray;
 * @author Hugi Þórðarson
 */
 
-public interface USHierarchy<E extends USHierarchy> extends EOEnterpriseObject {
+public interface USHierarchy<E extends USHierarchy> {
 
 	/**
 	 * This node's parent node
