@@ -18,6 +18,10 @@ import er.extensions.components.ERXStatelessComponent;
  * Further documentation can be found on FB's developer site:
  * http://developers.facebook.com/docs/reference/plugins/like
  * 
+ * (Note: I temporarily removed dependencies on other US libraries,
+ * so this component currently only requires Wonder.
+ * Methods ripped from US libraries are in the inner class "Util")
+ * 
  * @author Hugi Thordarson
  */
 
@@ -69,7 +73,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 		String url = stringValueForBinding( "url" );
 
 		if( url == null ) {
-			url = absoluteURL( (ERXRequest)context().request() );
+			url = FBLikeUtil.absoluteURL( (ERXRequest)context().request() );
 		}
 
 		return URLEncoder.encode( url, "UTF-8" );
@@ -88,7 +92,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 		parameters.put( "action", verb() );
 		parameters.put( "colorscheme", colorscheme() );
 
-		return constructURLStringWithParameters( "http://www.facebook.com/plugins/like.php", parameters );
+		return FBLikeUtil.constructURLStringWithParameters( "http://www.facebook.com/plugins/like.php", parameters );
 	}
 
 	/**
@@ -99,59 +103,67 @@ public class USFBLikeButton extends ERXStatelessComponent {
 	}
 
 	/**
-	 * (ripped from USWebObjects/USHTTPUtilities, included temporarily for reduced dependencies)
-	 * 
-	 * @return The absolute URL used to invoke the given request.
+	 *  A class containing some utility methods ripped from the US frameworks.
+	 *  this will be removed in a couple of weeks, and this component will then
+	 *  depend on USJava and USWebObjects. 
 	 */
-	private static String absoluteURL( ERXRequest request ) {
-		StringBuilder b = new StringBuilder();
+	private static class FBLikeUtil {
 
-		if( request.isSecure() ) {
-			b.append( "https://" );
-		}
-		else {
-			b.append( "http://" );
-		}
+		/**
+		 * (ripped from USWebObjects/USHTTPUtilities, included temporarily for reduced dependencies)
+		 * 
+		 * @return The absolute URL used to invoke the given request.
+		 */
+		private static String absoluteURL( ERXRequest request ) {
+			StringBuilder b = new StringBuilder();
 
-		b.append( request.remoteHostName() );
-		b.append( request.uri() );
-		return b.toString();
-	}
-
-	/**
-	 * (ripped from USJava/USStringUtilities, included temporarily for reduced dependencies)
-	 * 
-	 * Creates a complete url, starting with the base url, appending each parameter in query string format.
-	 * 
-	 * @param baseURL The baseURL to use.
-	 * @param parameters A dictionary of URL parameters to append to the base url.
-	 * @return A complete URL
-	 */
-	private static String constructURLStringWithParameters( String baseURL, Map<String, String> parameters ) {
-
-		StringBuilder b = new StringBuilder();
-
-		if( baseURL != null ) {
-			b.append( baseURL );
-		}
-
-		if( parameters != null && parameters.size() > 0 ) {
-			b.append( "?" );
-
-			for( String nextKey : parameters.keySet() ) {
-				String nextValue = parameters.get( nextKey );
-
-				b.append( nextKey );
-				b.append( "=" );
-
-				if( nextValue != null ) {
-					b.append( nextValue );
-				}
-
-				b.append( "&amp;" );
+			if( request.isSecure() ) {
+				b.append( "https://" );
 			}
+			else {
+				b.append( "http://" );
+			}
+
+			b.append( request.remoteHostName() );
+			b.append( request.uri() );
+			return b.toString();
 		}
 
-		return b.toString();
+		/**
+		 * (ripped from USJava/USStringUtilities, included temporarily for reduced dependencies)
+		 * 
+		 * Creates a complete url, starting with the base url, appending each parameter in query string format.
+		 * 
+		 * @param baseURL The baseURL to use.
+		 * @param parameters A dictionary of URL parameters to append to the base url.
+		 * @return A complete URL
+		 */
+		private static String constructURLStringWithParameters( String baseURL, Map<String, String> parameters ) {
+
+			StringBuilder b = new StringBuilder();
+
+			if( baseURL != null ) {
+				b.append( baseURL );
+			}
+
+			if( parameters != null && parameters.size() > 0 ) {
+				b.append( "?" );
+
+				for( String nextKey : parameters.keySet() ) {
+					String nextValue = parameters.get( nextKey );
+
+					b.append( nextKey );
+					b.append( "=" );
+
+					if( nextValue != null ) {
+						b.append( nextValue );
+					}
+
+					b.append( "&amp;" );
+				}
+			}
+
+			return b.toString();
+		}
 	}
 }
