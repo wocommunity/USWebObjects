@@ -12,8 +12,8 @@ import er.extensions.components.ERXStatelessComponent;
 /**
  * A component for Facebook's new "Like"-thingamabob.
  * 
- * The simplest way to use this component is to just include it in your page.
- * Default values are the same as provided by Facebook.
+ * The simplest way to use this component is to just include it in your page, it will
+ * then use the default values as provided by Facebook.
  * 
  * Further documentation can be found on FB's developer site:
  * http://developers.facebook.com/docs/reference/plugins/like
@@ -76,7 +76,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 	}
 
 	/**
-	 * @return Constructs the URL we send to Facebook
+	 * @return Constructs the URL sent to Facebook.
 	 */
 	public String iframeSRC() throws UnsupportedEncodingException {
 		Map<String, String> parameters = new HashMap<String, String>();
