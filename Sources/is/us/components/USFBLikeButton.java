@@ -20,7 +20,7 @@ import er.extensions.components.ERXStatelessComponent;
  * 
  * (Note: I temporarily removed dependencies on other US libraries,
  * so this component currently only requires Wonder.
- * Methods ripped from US libraries are in the inner class "Util")
+ * Methods ripped from US libraries are in the inner class "FBLikeUtil")
  * 
  * @author Hugi Thordarson
  */
