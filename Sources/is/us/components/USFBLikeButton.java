@@ -12,8 +12,8 @@ import er.extensions.components.ERXStatelessComponent;
 /**
  * A component for Facebook's new "Like"-thingamabob.
  * 
- * The simplest way to use this component is to just include it in your page, it will
- * then use the default values as provided by Facebook.
+ * The simplest way to use this component is to just include it on your page,
+ * it will then use default values as provided by Facebook.
  * 
  * Further documentation can be found on FB's developer site:
  * http://developers.facebook.com/docs/reference/plugins/like
