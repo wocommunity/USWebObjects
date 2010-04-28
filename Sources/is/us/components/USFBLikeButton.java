@@ -69,8 +69,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 		String url = stringValueForBinding( "url" );
 
 		if( url == null ) {
-			//			url = absoluteURL( (ERXRequest)context().request() );
-			url = "http://www.apple.com/";
+			url = absoluteURL( (ERXRequest)context().request() );
 		}
 
 		return URLEncoder.encode( url, "UTF-8" );
@@ -89,7 +88,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 		parameters.put( "action", verb() );
 		parameters.put( "colorscheme", colorscheme() );
 
-		return constructURLStringWithParameters( "http://www.facebook.com/plugins/like.php?", parameters );
+		return constructURLStringWithParameters( "http://www.facebook.com/plugins/like.php", parameters );
 	}
 
 	/**
