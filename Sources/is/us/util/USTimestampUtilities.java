@@ -168,15 +168,15 @@ public class USTimestampUtilities {
 	/**
 	 * Normalizes an NSTimestamp to nine o'clock on the next weekday.
 	 */
-	public static NSTimestamp normalizeTimestampToNineNextWorkingDay( NSTimestamp oldTimestamp ) {
-		oldTimestamp = USTimestampUtilities.normalizeTimestampToMidnight( oldTimestamp );
-		oldTimestamp = oldTimestamp.timestampByAddingGregorianUnits( 0, 0, 0, 9, 0, 0 );
+	public static NSTimestamp normalizeTimestampToNineNextWorkingDay( NSTimestamp t ) {
+		t = USTimestampUtilities.normalizeTimestampToMidnight( t );
+		t = t.timestampByAddingGregorianUnits( 0, 0, 1, 9, 0, 0 );
 
-		while( USDateUtilities.isWorkday( oldTimestamp ) ) {
-			oldTimestamp.timestampByAddingGregorianUnits( 0, 0, 1, 0, 0, 0 );
+		while( !USDateUtilities.isWorkday( t ) ) {
+			t = t.timestampByAddingGregorianUnits( 0, 0, 1, 0, 0, 0 );
 		}
 
-		return oldTimestamp;
+		return t;
 	}
 
 	/**
