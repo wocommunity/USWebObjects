@@ -22,7 +22,7 @@ import er.extensions.components.ERXComponent;
  * * All EOModels in your application, along with their connection dictionaries and associated entities.
  * * All properties in the application's environment.
  * * Executes "ps -ax" on the server to get a list of all currently running processes.
- * 
+ * * Classpath
  * 
  * @author Hugi Þórðarson
  */
@@ -33,7 +33,7 @@ public class USApplicationInfo extends ERXComponent {
 	public EOModel currentModel;
 	public EOEntity currentEntity;
 	public String currentPropertyKey;
-	private NSDictionary _properties = new NSDictionary( java.lang.System.getProperties() );
+	private final NSDictionary _properties = new NSDictionary( java.lang.System.getProperties() );
 
 	private static final String PATH_SEPARATOR = System.getProperty( "path.separator" );
 	private static final int psLength = PATH_SEPARATOR.length();
