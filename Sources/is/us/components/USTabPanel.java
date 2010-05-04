@@ -3,30 +3,56 @@ package is.us.components;
 import com.webobjects.appserver.*;
 import com.webobjects.foundation.NSArray;
 
-import er.extensions.components.ERXComponent;
+import er.extensions.components.ERXNonSynchronizingComponent;
 import er.extensions.foundation.ERXStringUtilities;
 
 /**
+ * A simple tab panel.
+ * 
  * @author Hugi Þórðarson
  */
 
-public class USTabPanel extends ERXComponent {
+public class USTabPanel extends ERXNonSynchronizingComponent {
 
+	/**
+	 * CSS class for active tab button.
+	 */
 	private static final String ACTIVE_TAB_CLASSNAME = "swactivetab";
+
+	/**
+	 * CSS class for inactive tab button.
+	 */
 	private static final String INACTIVE_TAB_CLASSNAME = "swinactivetab";
 
+	/**
+	 * Tab currently being iterated over.
+	 */
 	public String currentTab;
-	public Object selectedTab;
-	public String submitActionName;
+
+	/**
+	 * Currently selected tab.
+	 */
+	public String selectedTab;
+
+	/**
+	 * Unique identifier for this component 
+	 */
+	private String _uniqueID;
 
 	public USTabPanel( WOContext context ) {
 		super( context );
 	}
 
+	/**
+	 * @return Tab names
+	 */
 	public NSArray<String> tabs() {
 		return (NSArray<String>)valueForBinding( "tabs" );
 	}
 
+	/**
+	 * @return
+	 */
 	public String submitActionName() {
 		return (String)valueForBinding( "submitActionName" );
 	}
@@ -61,16 +87,16 @@ public class USTabPanel extends ERXComponent {
 		return selectedTab;
 	}
 
-	public boolean synchronizesVariablesWithBindings() {
-		return false;
-	}
-
+	/**
+	 * @return True if we have more than 1 tab.
+	 */
 	public boolean hasMultipleTabs() {
 		return tabs().count() > 1;
 	}
 
-	private String _uniqueID;
-
+	/**
+	 * Unique identifier for this component 
+	 */
 	public String uniqueID() {
 		if( _uniqueID == null ) {
 			_uniqueID = "TabPanel_" + ERXStringUtilities.replaceStringByStringInString( ".", "_", context().elementID() );

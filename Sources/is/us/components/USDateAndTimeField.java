@@ -8,9 +8,9 @@ import com.webobjects.foundation.*;
 import er.extensions.components.ERXComponent;
 
 /**
- * @author Hugi Þórðarson
  * 
- * TODO: Comment.
+ * 
+ * @author Hugi Þórðarson
  */
 
 public class USDateAndTimeField extends ERXComponent {

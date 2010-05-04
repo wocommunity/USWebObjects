@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <wodefinitions>
 	<wo class="VSNestedList" wocomponentcontent="true">
 
@@ -7,16 +7,17 @@
 		<binding name="index"/>
 		<binding name="sublist"/>
 
-		<validation message="&apos;list&apos; is a required binding">
+		<validation message="'list' is a required binding">
 			<unbound name="list"/>
 		</validation>
 
-		<validation message="&apos;item&apos; is a required binding">
+		<validation message="'item' is a required binding">
 			<unbound name="item"/>
 		</validation>
 
-		<validation message="&apos;sublist&apos; is a required binding">
+		<validation message="'sublist' is a required binding">
 			<unbound name="sublist"/>
 		</validation>
-	</wo>
+	<binding name="isOrdered"/>
+    </wo>
 </wodefinitions>

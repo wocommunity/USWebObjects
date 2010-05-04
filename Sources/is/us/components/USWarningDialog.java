@@ -17,8 +17,8 @@ import er.extensions.components.ERXComponent;
  */
 public class USWarningDialog extends ERXComponent {
 
-	private String TYPE_WARNING = "warning";
-	private String TYPE_ERROR = "error";
+	private static final String TYPE_WARNING = "warning";
+	private static final String TYPE_ERROR = "error";
 
 	private List<String> _messages;
 	private String _type = TYPE_WARNING;
@@ -27,6 +27,11 @@ public class USWarningDialog extends ERXComponent {
 
 	public USWarningDialog( WOContext context ) {
 		super( context );
+	}
+
+	@Override
+	protected boolean useDefaultComponentCSS() {
+		return true;
 	}
 
 	/**
@@ -65,15 +70,6 @@ public class USWarningDialog extends ERXComponent {
 	 * @return the css class name to use for the messages
 	 */
 	public String className() {
-		if( type().equalsIgnoreCase( TYPE_ERROR ) ) {
-			return "errorMessages";
-		}
-		return "warningMessages";
+		return type().equalsIgnoreCase( TYPE_ERROR ) ? "errorMessages" : "warningMessages";
 	}
-
-	@Override
-	protected boolean useDefaultComponentCSS() {
-		return true;
-	}
-
 }

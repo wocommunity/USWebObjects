@@ -5,47 +5,52 @@ import is.us.util.USArrayUtilities;
 import com.webobjects.appserver.WOContext;
 import com.webobjects.foundation.NSArray;
 
-import er.extensions.components.ERXComponent;
+import er.extensions.components.ERXStatelessComponent;
 
 /**
- * Displays a hierarchical list.<br />
- * The bindings to use are:
- * <ul>
- * <li> <b>index</b><br />This variable is updates at each iteration in the current level in the hierarchy.
- * <li> <b>item</b><br />The current item being iterated over in the list
- * <li> <b>list</b><br />An NSArray of root elements to display
- * <li> <b>sublist</b><br />The list of subelements to display. An NSArray contained in the item - "item.someArray"
- *
+ * Displays a hierarchical list.
+ * 
+ * Bindings:
+ * 
+ * item The item currently being iterated over
+ * list An NSArray of root elements to display
+ * sublist The list of subelements to display. An NSArray contained in the item - "item.someArray"
+ * index index of the repetition in each level of the hierarchy.
+ * isOrdered indicates if we want to generate an ordered or unordered list.
  * @author Hugi Þórðarson
- * @version 2.9.2b6
- * @since 2.5
  */
 
-public class USNestedList extends ERXComponent {
+public class USNestedList extends ERXStatelessComponent {
 
 	public USNestedList( WOContext context ) {
 		super( context );
 	}
 
 	/**
-	 * Determines if the list should be displayed as an ordered list or an unnumbered list.
+	 * Binding indicating if the list should be ordered. 
+	 */
+	private boolean isOrdered() {
+		return booleanValueForBinding( "isOrdered" );
+	}
+
+	/**
+	 * Sublist binding 
+	 */
+	private NSArray<?> sublist() {
+		return (NSArray<?>)valueForBinding( "sublist" );
+	}
+
+	/**
+	 * Ordered or unordered.
 	 */
 	public String listTagName() {
-		return valueForBinding( "isOrdered" ) != null ? "ol" : "ul";
+		return isOrdered() ? "ol" : "ul";
 	}
 
 	/**
 	 * Determines if the current node has a sublist
 	 */
 	public boolean hasSublist() {
-		return USArrayUtilities.arrayHasObjects( (NSArray)valueForBinding( "sublist" ) );
-	}
-
-	public boolean synchronizesVariablesWithBindings() {
-		return false;
-	}
-
-	public boolean isStateless() {
-		return true;
+		return USArrayUtilities.arrayHasObjects( sublist() );
 	}
 }

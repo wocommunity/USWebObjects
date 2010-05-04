@@ -17,7 +17,12 @@ import com.webobjects.foundation.NSComparator.ComparisonException;
 import er.extensions.components.ERXComponent;
 
 /**
- * Displays runtime information for the application.
+ * Displays some runtime information about the application.
+ * 
+ * * All EOModels in your application, along with their connection dictionaries and associated entities.
+ * * All properties in the application's environment.
+ * * Executes "ps -ax" on the server to get a list of all currently running processes.
+ * 
  * 
  * @author Hugi Þórðarson
  */
@@ -38,33 +43,42 @@ public class USApplicationInfo extends ERXComponent {
 	}
 
 	@Override
-	protected com.webobjects.foundation.NSArray<String> additionalCSSFiles() {
-		return new NSArray<String>( "USApplicationInfo.css" );
+	protected boolean useDefaultComponentCSS() {
+		return true;
 	}
 
+	/**
+	 * All the EOModels in your application.
+	 */
 	public NSArray<EOModel> allModels() {
 		return EOModelGroup.defaultGroup().models();
 	}
 
+	/**
+	 * @return The bundle name for the current EOModel.
+	 */
 	public String currentBundleName() {
 		return USEOUtilities.bundleNameForEOModel( currentModel );
 	}
 
-	public NSArray propertyKeys() {
-		NSArray a = _properties.allKeys();
-		try {
-			return a.sortedArrayUsingComparator( USGenericComparator.IcelandicAscendingComparator );
-		}
-		catch( ComparisonException e ) {
-			e.printStackTrace();
-			return null;
-		}
+	/**
+	 * @return All property keys in the application.
+	 */
+	public NSArray<String> propertyKeys() throws ComparisonException {
+		NSArray<String> a = _properties.allKeys();
+		return a.sortedArrayUsingComparator( USGenericComparator.IcelandicAscendingComparator );
 	}
 
+	/**
+	 * @return Value of the property currently being iterated over.
+	 */
 	public Object currentPropertyValue() {
 		return _properties.objectForKey( currentPropertyKey );
 	}
 
+	/**
+	 * @return The result of invoking "ps" on the server, showing the currently running processes.
+	 */
 	public String psString() {
 		try {
 			Process p = Runtime.getRuntime().exec( "ps -ax" );
@@ -132,7 +146,7 @@ public class USApplicationInfo extends ERXComponent {
 		return USStringUtilities.convertBreakString( b.toString() );
 	}
 
-	public static NSArray pp( String path ) {
+	private static NSArray pp( String path ) {
 
 		if( null == path ) {
 			return NSArray.EmptyArray;
@@ -155,7 +169,7 @@ public class USApplicationInfo extends ERXComponent {
 		return new NSArray( result );
 	}
 
-	public static NSArray ppp( String systemProperty ) {
+	private static NSArray ppp( String systemProperty ) {
 		return pp( System.getProperty( systemProperty ) );
 	}
 }
