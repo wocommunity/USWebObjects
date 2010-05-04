@@ -20,14 +20,16 @@ import com.webobjects.foundation.*;
 
 public class USGenericComparator extends NSComparator {
 
-	private java.text.Collator _collator;
-	private String _keyPath;
-	private boolean _ascending;
-	private boolean _caseInsensitive;
+	private final java.text.Collator _collator;
+	private final String _keyPath;
+	private final boolean _ascending;
+	private final boolean _caseInsensitive;
+
 	/**
 	 * A Comparator for sorting Icelandic text alphabetically in a descending order.
 	 */
 	public static final NSComparator IcelandicDescendingComparator = new USGenericComparator._IcelandicComparator( false, true );
+
 	/**
 	 * A Comparator for sorting Icelandic text alphabetically in an ascending order.
 	 */
@@ -40,6 +42,7 @@ public class USGenericComparator extends NSComparator {
 		_caseInsensitive = caseInsensitive;
 	}
 
+	@Override
 	public int compare( Object kvc1, Object kvc2 ) throws ComparisonException {
 
 		String string1 = (String)NSKeyValueCodingAdditions.Utility.valueForKeyPath( kvc1, _keyPath );
@@ -77,10 +80,11 @@ public class USGenericComparator extends NSComparator {
 	 */
 	private static class _IcelandicComparator extends NSComparator {
 
-		private boolean _ascending;
-		private boolean _caseInsensitive;
+		private final boolean _ascending;
+		private final boolean _caseInsensitive;
 		private static Collator collator = Collator.getInstance( new Locale( "is", "IS" ) );
 
+		@Override
 		public int compare( Object obj, Object obj1 ) throws ComparisonException {
 
 			if( obj == null || obj1 == null || !(obj instanceof String) || !(obj1 instanceof String) )

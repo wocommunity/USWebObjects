@@ -8,11 +8,9 @@ import com.webobjects.foundation.*;
 import er.extensions.foundation.ERXArrayUtilities;
 
 /**
- * SWHierarchyUtilities allows the programmer to do various things with objects that implement the SWHierarchy interface
+ * Allows the programmer to do various things with objects that implement the USHierarchy interface
  *
  * @author Hugi Þórðarson
- * @version 2.9.4
- * @since 2.7
  */
 
 public class USHierarchyUtilities {

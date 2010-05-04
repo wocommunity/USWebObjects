@@ -6,15 +6,18 @@ import com.webobjects.appserver.WORequest;
 import com.webobjects.foundation.NSMutableDictionary;
 
 /**
- * TODO: Missing comments // Hugi
+ * Utilities to handle client side SSL certificates in WebObjects.
  * 
  * @author Atli Páll Hafsteinsson
  */
 
 public class USSClientCertUtilities {
 
-	static final Logger logger = LoggerFactory.getLogger( USSClientCertUtilities.class );
+	private static final Logger logger = LoggerFactory.getLogger( USSClientCertUtilities.class );
 
+	/**
+	 * Name of the header sent by the WebObjects adaptor.
+	 */
 	private static final String HEADER = "ssl_client_cert_cn";
 
 	/**

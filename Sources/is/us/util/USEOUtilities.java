@@ -209,16 +209,16 @@ public class USEOUtilities {
 	 * @return
 	 */
 	public static NSArray<EOEnterpriseObject> convertRawRowsToEOs( EOEditingContext ec, String entityName, NSArray<NSDictionary> rawRows ) {
-		NSMutableArray allQualifier = new NSMutableArray();
+		NSMutableArray<EOQualifier> allQualifier = new NSMutableArray<EOQualifier>();
 
-		for( NSDictionary pkDictionary : rawRows ) {
-			EOQualifier q = EOQualifier.qualifierToMatchAllValues( pkDictionary );
+		for( NSDictionary pk : rawRows ) {
+			EOQualifier q = EOQualifier.qualifierToMatchAllValues( pk );
 			allQualifier.addObject( q );
 		}
 
 		EOQualifier q = new EOOrQualifier( allQualifier );
 		EOFetchSpecification fs = new EOFetchSpecification( entityName, q, null );
-		NSArray eos = ec.objectsWithFetchSpecification( fs );
+		NSArray<EOEnterpriseObject> eos = ec.objectsWithFetchSpecification( fs );
 		return eos;
 	}
 

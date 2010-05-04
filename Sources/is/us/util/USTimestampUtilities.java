@@ -1,11 +1,7 @@
 package is.us.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
 import com.webobjects.foundation.NSTimestamp;
 
@@ -173,46 +169,14 @@ public class USTimestampUtilities {
 	 * Normalizes an NSTimestamp to nine o'clock on the next weekday.
 	 */
 	public static NSTimestamp normalizeTimestampToNineNextWorkingDay( NSTimestamp oldTimestamp ) {
-		GregorianCalendar calendar = (GregorianCalendar)GregorianCalendar.getInstance();
-		calendar.setTime( oldTimestamp );
+		oldTimestamp = USTimestampUtilities.normalizeTimestampToMidnight( oldTimestamp );
+		oldTimestamp = oldTimestamp.timestampByAddingGregorianUnits( 0, 0, 0, 9, 0, 0 );
 
-		int hourOfDay = calendar.get( GregorianCalendar.HOUR_OF_DAY );
-		int minuteOfHour = calendar.get( GregorianCalendar.MINUTE );
-		int secondOfMinute = calendar.get( GregorianCalendar.SECOND );
-
-		int dayOfWeek = calendar.get( GregorianCalendar.DAY_OF_WEEK );
-
-		// Holiday check added 6. April 2006 by Logi Helgu
-
-		// create an NSTimestamp at midnight for the date to check with holidays
-		NSTimestamp normalizedTimestamp = normalizeTimestampToMidnight( oldTimestamp );
-
-		// Get list of holidays for the given year.
-		USHolidays holidays = new USHolidays( calendar.get( GregorianCalendar.YEAR ) );
-		List<Date> holidaysList = holidays.fullHolidays();
-
-		// Also add all holidays from next year in case we're crossing over into the new year
-		holidays = new USHolidays( holidays.year() + 1 );
-		holidaysList.addAll( holidays.fullHolidays() );
-
-		int offset = 1; // offset to next working day( of 5 day working week )
-
-		if( dayOfWeek == GregorianCalendar.FRIDAY ) {
-			offset = 3;
-		}
-		else if( dayOfWeek == GregorianCalendar.SATURDAY ) {
-			offset = 2;
+		while( USDateUtilities.isWorkday( oldTimestamp ) ) {
+			oldTimestamp.timestampByAddingGregorianUnits( 0, 0, 1, 0, 0, 0 );
 		}
 
-		normalizedTimestamp = normalizedTimestamp.timestampByAddingGregorianUnits( 0, 0, offset, 0, 0, 0 );
-
-		// Check if the date is part of full holidays and find offset in days to next working day
-		while( holidaysList.contains( normalizedTimestamp ) ) {
-			offset++;
-			normalizedTimestamp = normalizedTimestamp.timestampByAddingGregorianUnits( 0, 0, 1, 0, 0, 0 );
-		}
-
-		return oldTimestamp.timestampByAddingGregorianUnits( 0, 0, offset, -hourOfDay + 9, -minuteOfHour, -secondOfMinute );
+		return oldTimestamp;
 	}
 
 	/**
