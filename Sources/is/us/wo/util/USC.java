@@ -135,6 +135,7 @@ public class USC {
 	public static final String REGTYPE_NEWREGISTERED = "NY";
 	public static final String REGTYPE_REREGISTERED = "EN";
 	public static final String REGTYPE_DEREGISTERED = "A";
+	public static final String REGTYPE_RECYCLED = "M";
 
 	// Cret.subcode
 	public static final String REG_SUBTYPE_OTHER = "A";
@@ -144,6 +145,7 @@ public class USC {
 	public static final String REG_SUBTYPE_DAM = "V";
 	public static final String REG_SUBTYPE_AUTHOR = "Y";
 	public static final String REG_SUBTYPE_GENERAL = "A";
+	public static final String REG_SUBTYPE_RECYCLE = "U";
 	public static final String REG_SUBTYPE_UNKNOWN = "ZZ";
 
 	// Crgr
