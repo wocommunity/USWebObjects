@@ -18,6 +18,10 @@ import er.extensions.components.ERXStatelessComponent;
  * Further documentation can be found on FB's developer site:
  * http://developers.facebook.com/docs/reference/plugins/like
  * 
+ * If you want to use multiple like-buttons on your site,
+ * you'll have to specify values for the "title" and "site"
+ * bindings (thanks to @agorais for the technique).
+ * 
  * (Note: I temporarily removed dependencies on other US libraries,
  * so this component currently only requires Wonder.
  * Methods ripped from US libraries are in the inner class "FBLikeUtil")
@@ -64,6 +68,20 @@ public class USFBLikeButton extends ERXStatelessComponent {
 	 */
 	public String layout() {
 		return stringValueForBinding( "layout", "standard" );
+	}
+
+	/**
+	 * @return An alternate title to show on FaceBook. Perfect if you want to include multiple Like-buttons on one page.
+	 */
+	public String title() {
+		return stringValueForBinding( "title" );
+	}
+
+	/**
+	 * @return An alternate sitename to show on Facebook. Perfect if you want to include multiple Like-buttons on one page.
+	 */
+	public String site() {
+		return stringValueForBinding( "site" );
 	}
 
 	/**
