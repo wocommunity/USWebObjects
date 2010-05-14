@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wodefinitions>
+    <wo class="USFBLikeBox" wocomponentcontent="false">    <binding name="id"/>
+        <binding name="width"/>
+        <binding defaults="Boolean" name="height"/>
+        <binding name="connections"/>
+        <binding defaults="Boolean" name="stream"/>
+        <binding name="header"/>
+        <binding name="newBinding6"/>
+        <validation message="'id' is a required binding.">
+            <unbound name="id"/>
+        </validation>
+    </wo>
+</wodefinitions>

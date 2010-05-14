@@ -42,7 +42,7 @@ public class USFBUtil {
 	 * @param parameters A dictionary of URL parameters to append to the base url.
 	 * @return A complete URL
 	 */
-	public static String constructURLStringWithParameters( String baseURL, Map<String, String> parameters ) {
+	public static String constructURLStringWithParameters( String baseURL, Map<String, Object> parameters ) {
 
 		StringBuilder b = new StringBuilder();
 
@@ -54,13 +54,13 @@ public class USFBUtil {
 			b.append( "?" );
 
 			for( String nextKey : parameters.keySet() ) {
-				String nextValue = parameters.get( nextKey );
+				Object nextValue = parameters.get( nextKey );
 
 				b.append( nextKey );
 				b.append( "=" );
 
 				if( nextValue != null ) {
-					b.append( nextValue );
+					b.append( nextValue.toString() );
 				}
 
 				b.append( "&amp;" );

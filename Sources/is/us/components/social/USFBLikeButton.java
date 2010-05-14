@@ -97,7 +97,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 	 * @return Constructs the URL sent to Facebook.
 	 */
 	public String iframeSRC() throws UnsupportedEncodingException {
-		Map<String, String> parameters = new HashMap<String, String>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 
 		parameters.put( "href", url() );
 		parameters.put( "layout", layout() );
