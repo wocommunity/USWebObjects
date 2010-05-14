@@ -2,7 +2,6 @@ package is.us.util;
 
 import is.us.wo.util.USC;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import org.slf4j.*;
@@ -11,9 +10,7 @@ import com.webobjects.eocontrol.EOSortOrdering;
 import com.webobjects.foundation.*;
 
 /**
- * Various utility methods for handling of arrays.
- * 
- * @author Hugi Þórðarson
+ * Various utility methods applying to NSArrays.
  */
 
 public class USArrayUtilities {
@@ -26,12 +23,12 @@ public class USArrayUtilities {
 	private USArrayUtilities() {}
 
 	/**
-	 * Returns an String array of the first letters of the keyPath of anArray
+	 * Returns an array of the first letters of the keyPath of anArray
 	 * Note: whitespace as a first letter is ignored.
 	 */
 	public static NSArray<String> firstLettersForKeyPathInArray( String keyPath, NSArray<? extends NSKeyValueCoding> array ) {
 
-		if( array == null ) {
+		if( !arrayHasObjects( array ) ) {
 			return NSArray.emptyArray();
 		}
 
@@ -61,8 +58,9 @@ public class USArrayUtilities {
 	 */
 	public static <E> NSArray<E> sortedArrayUsingIcelandicComparator( NSArray<E> array, String keypath ) {
 
-		if( !arrayHasObjects( array ) )
+		if( !arrayHasObjects( array ) ) {
 			return NSArray.emptyArray();
+		}
 
 		try {
 			USGenericComparator icelandicComparator = new USGenericComparator( java.text.Collator.getInstance( new java.util.Locale( "is", "IS" ) ), keypath, true, true );
@@ -77,48 +75,27 @@ public class USArrayUtilities {
 	/**
 	 * Returns a random object from the specified array. If the array contains no objects or is null, null is returned.
 	 */
-	public static <E> E randomObjectFromArray( NSArray<E> anArray ) {
+	public static <E> E randomObjectFromArray( NSArray<E> array ) {
 
-		if( anArray == null )
+		if( !arrayHasObjects( array ) ) {
 			return null;
-
-		int count = anArray.count();
-
-		if( count == 0 )
-			return null;
-
-		int number = USC.RANDOM.nextInt( count );
-		return anArray.objectAtIndex( number );
-	}
-
-	/**
-	 * Reverses the order of the objects in the given array.
-	 */
-	public static <E> NSArray<E> arrayByReversingArray( NSArray<E> a ) {
-
-		if( !arrayHasObjects( a ) )
-			return NSArray.emptyArray();
-
-		Enumeration<E> e = a.reverseObjectEnumerator();
-		NSMutableArray<E> b = new NSMutableArray<E>();
-
-		while( e.hasMoreElements() ) {
-			b.addObject( e.nextElement() );
 		}
 
-		return b;
+		int count = array.count();
+		int number = USC.RANDOM.nextInt( count );
+		return array.objectAtIndex( number );
 	}
 
 	/**
 	 * Randomizes the objects in an array
 	 */
-	public static <E> NSArray<E> arrayByRandomizingArray( NSArray<E> a ) {
+	public static <E> NSArray<E> arrayByRandomizingArray( NSArray<E> array ) {
 
-		if( !arrayHasObjects( a ) ) {
+		if( !arrayHasObjects( array ) ) {
 			return NSArray.emptyArray();
 		}
 
-		NSMutableArray<E> originalArray = a.mutableClone();
+		NSMutableArray<E> originalArray = array.mutableClone();
 		NSMutableArray<E> resultArray = new NSMutableArray<E>();
 
 		Enumeration<E> e = originalArray.objectEnumerator();
@@ -133,25 +110,42 @@ public class USArrayUtilities {
 	}
 
 	/**
+	 * Reverses the order of the objects in the given array.
+	 */
+	public static <E> NSArray<E> arrayByReversingArray( NSArray<E> array ) {
+
+		if( !arrayHasObjects( array ) ) {
+			return NSArray.emptyArray();
+		}
+
+		Enumeration<E> e = array.reverseObjectEnumerator();
+		NSMutableArray<E> b = new NSMutableArray<E>();
+
+		while( e.hasMoreElements() ) {
+			b.addObject( e.nextElement() );
+		}
+
+		return b;
+	}
+
+	/**
 	 * Filters an array, so that only the first entry with a distinct value is used.
+	 * 
+	 * Example: To filter an array of VEHI objects to get only the newest record for each vehicledate.
+	 * filterArrayForUniqueRecords( vehicles, Vehi.PERMNO, Vehi.VEHICLEDATE.desc() )
 	 * 
 	 * @param array And array containing objects implementing KVC.
 	 * @param keypath The keypath for the unique value in the returned array. For example, a vehicle's permno.
 	 * @param sortOrderings The sortorderings to use.
-	 * 
-	 * Example:
-	 * To filter an array of VEHI objects to get only the newest record for each vehicledate.
-	 * 
-	 * filterArrayForUniqueRecords( vehicles, Vehi.PERMNO, Vehi.VEHICLEDATE.desc() )
-	 *
-	 * @author Hugi Þórðarson
 	 */
 	public static NSArray<? extends NSKeyValueCoding> filterArrayForUniqueRecords( NSArray<? extends NSKeyValueCoding> array, String keypath, NSArray<EOSortOrdering> sortOrderings ) {
 
 		NSArray<? extends NSKeyValueCoding> sortedArray = array;
+
 		if( sortOrderings != null ) {
 			sortedArray = EOSortOrdering.sortedArrayUsingKeyOrderArray( array, sortOrderings );
 		}
+
 		NSMutableArray<NSKeyValueCoding> resultArray = new NSMutableArray<NSKeyValueCoding>();
 
 		String lastAddedValue = null;
@@ -171,20 +165,20 @@ public class USArrayUtilities {
 	/**
 	 * This method will check an NSArray for duplicate objects.
 	 * If it finds any duplicates, it will return an NSArray containing one instance of each duplicate object.
-	 * 
-	 * @author Hugi Þórðarson
 	 */
-	public static NSArray findDuplicatesInArray( NSArray a ) {
+	public static <E> NSArray<E> arrayWithoutDuplicates( NSArray<E> a ) {
 
-		if( !USArrayUtilities.arrayHasObjects( a ) )
-			return NSArray.EmptyArray;
+		if( !USArrayUtilities.arrayHasObjects( a ) ) {
+			return NSArray.emptyArray();
+		}
 
-		NSMutableArray alreadyCheckedObjects = new NSMutableArray();
-		NSMutableArray duplicates = new NSMutableArray();
+		NSMutableArray<E> alreadyCheckedObjects = new NSMutableArray<E>();
+		NSMutableArray<E> duplicates = new NSMutableArray<E>();
 
 		for( Object o : a ) {
-			if( alreadyCheckedObjects.containsObject( o ) && !duplicates.containsObject( o ) )
+			if( alreadyCheckedObjects.containsObject( o ) && !duplicates.containsObject( o ) ) {
 				duplicates.addObject( o );
+			}
 
 			alreadyCheckedObjects.addObject( o );
 		}
@@ -196,8 +190,6 @@ public class USArrayUtilities {
 	 * This method filters an NSArray with a given substring string.
 	 * It combines one or more elements to a string and compares that value to the substring.
 	 * Note, If == -1 then substr can occure anywhere in array element( e.g. instr )
-	 * 
-	 * @author Bjarni Sævarsson
 	 */
 	public static NSArray filterArrayWithSubstr( NSArray arr, String substr, NSArray keypath, int offset ) {
 		return filterArrayWithSubstr( arr, substr, keypath, offset, false );
@@ -207,8 +199,6 @@ public class USArrayUtilities {
 	 * This method filters an NSArray with a given substring string.
 	 * It combines one or more elements to a string and compares that value to the substring.
 	 * Note, If == -1 then substr can occure anywhere in array element( e.g. instr )
-	 * 
-	 * @author Bjarni Sævarsson
 	 */
 	public static NSArray filterArrayWithSubstr( NSArray arr, String substr, NSArray keypath, int offset, boolean caseInsensitive ) {
 
@@ -249,47 +239,6 @@ public class USArrayUtilities {
 	}
 
 	/**
-	 * Wrapper function to join collections.
-	 * 
-	 * @param collection
-	 * @param separator
-	 * @return
-	 * @author Bjarni Sævarsson
-	 */
-	public static String join( Collection<? extends Object> collection, String separator ) {
-
-		if( collection == null ) {
-			return null;
-		}
-
-		return USArrayUtilities.join( collection.toArray(), separator );
-	}
-
-	/**
-	 * Joins an array, using the delimiter, into a string.
-	 * 
-	 * @param arr
-	 * @param delimiter
-	 * @return String
-	 * @author Bjarni Sævarsson
-	 */
-	public static String join( Object[] collection, String separator ) {
-
-		if( collection == null ) {
-			return null;
-		}
-
-		StringBuffer retString = new StringBuffer();
-		for( int i = 0; i < collection.length; i++ ) {
-			if( (i > 0) && (separator != null) ) {
-				retString.append( separator );
-			}
-			retString.append( String.valueOf( collection[i] ) );
-		}
-		return retString.toString();
-	}
-
-	/**
 	 * Create an NSArray from arbitrary parameters
 	 *
 	 * @param objs An Object..., stored in returned NSArray
@@ -315,7 +264,7 @@ public class USArrayUtilities {
 	 */
 	public static <E> NSArray<E> maxObjectsFromArray( NSArray<E> array, Integer maxCount ) {
 
-		if( array == null || array.count() == 0 ) {
+		if( !arrayHasObjects( array ) ) {
 			return NSArray.emptyArray();
 		}
 
@@ -328,53 +277,5 @@ public class USArrayUtilities {
 		}
 
 		return array;
-	}
-
-	// TODO A handful of unit tests would look good for these utility functions ;) -> there are unit tests in Tests.is.us.util.TestUSArrayUtilities :)
-	/**
-	 * Searches for an element in an unsorted array
-	 * 
-	 * @param arr array to search through
-	 * @param elementToFind element to find
-	 * @return index of element in the array, if element is not found then -1
-	 * 
-	 * @reviewedby Logi Helgu at Oct 13, 2009( see JIRA issue INN-739 )
-	 */
-	public static <T> int searchUnsorted( T[] arr, T elementToFind ) {
-		if( (arr == null) || (elementToFind == null) || (arr.length < 1) ) {
-			return -1;
-		}
-		for( int i = 0; i < arr.length; i++ ) {
-			if( arr[i].equals( elementToFind ) ) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	/**
-	 * Resizes a array.
-	 * 
-	 * @param arr array to resize
-	 * @param newSize new array size
-	 * @return resized array
-	 * @exception  IndexOutOfBoundsException  if copying would cause
-	 *               access of data outside array bounds.
-	 * @exception  ArrayStoreException  if an element in the <code>src</code>
-	 *               array could not be stored into the <code>dest</code> array
-	 *               because of a type mismatch.
-	 * @exception  NullPointerException if either <code>src</code> or
-	 *               <code>dest</code> is <code>null</code>.
-	 * 
-	 * @reviewedby Logi Helgu at Oct 13, 2009( see JIRA issue INN-739 )
-	 */
-	@SuppressWarnings( "unchecked" )
-	public static <T> T[] resize( T[] arr, int newSize ) {
-		if( newSize < 1 ) {
-			return (T[])Array.newInstance( arr.getClass().getComponentType(), 0 );
-		}
-		T[] newArr = (T[])Array.newInstance( arr.getClass().getComponentType(), newSize );
-		System.arraycopy( arr, 0, newArr, 0, arr.length );
-		return newArr;
 	}
 }
