@@ -54,45 +54,6 @@ public class USArrayUtilities {
 	}
 
 	/**
-	 * Slices [array] into [columns] number of arrays, adding [paddingObject] to fill up the last column
-	 *
-	public static <E> NSArray<NSArray<E>> arrayByTransposingArray( NSArray<E> array, int columns, E paddingObject ) {
-
-		if( !USArrayUtilities.arrayHasObjects( array ) ) {
-			return NSArray.emptyArray();
-		}
-
-		NSMutableArray<E> arrayClone = array.mutableClone();
-
-		while( arrayClone.count() % columns != 0 ) {
-			arrayClone.addObject( paddingObject );
-		}
-
-		int countInEachColumn = arrayClone.count() / columns;
-
-		NSMutableArray columnArray = new NSMutableArray( columns );
-
-		for( int i = 0; columns > i; i++ ) {
-			columnArray.addObject( arrayClone.subarrayWithRange( new NSRange( i * countInEachColumn, countInEachColumn ) ) );
-		}
-
-		NSMutableArray rowArray = new NSMutableArray();
-
-		for( int i = 0; countInEachColumn > i; i++ ) {
-			NSMutableArray row = new NSMutableArray();
-
-			for( int j = 0; columns > j; j++ ) {
-				row.addObject( ((NSArray)columnArray.objectAtIndex( j )).objectAtIndex( i ) );
-			}
-
-			rowArray.addObject( row );
-		}
-
-		return rowArray;
-	}
-	*/
-
-	/**
 	 * Returns a new array sorted according to the icelandic alphabet on the given keypath of the array objects
 	 * 
 	 * @param array the array to sort
