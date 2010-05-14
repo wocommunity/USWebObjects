@@ -8,7 +8,7 @@ import er.extensions.components.ERXComponent;
 /**
  * Array and dictionary editors inherit from this guy.
  * 
- * @author Hugi Þórðarson
+ * @author Hugi Thordarson
  */
 
 public class USPlistEditorAbstract extends ERXComponent {

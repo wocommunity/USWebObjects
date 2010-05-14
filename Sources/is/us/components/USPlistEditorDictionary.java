@@ -8,9 +8,7 @@ import com.webobjects.foundation.*;
 /**
  * SWDictionaryEditor allows for graphical editing of property lists.
  *
- * @author Hugi Þórðarson
- * @version 2.5
- * @since 2.5
+ * @author Hugi Thordarson
  */
 
 public class USPlistEditorDictionary extends USPlistEditorAbstract {

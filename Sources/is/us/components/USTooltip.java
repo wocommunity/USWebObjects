@@ -10,6 +10,9 @@ import er.extensions.foundation.ERXStringUtilities;
 /**
  * Display floating tooltip above an HTML element
  * 
+ * Bindings:
+ * []		: 
+ * 
  * @author Logi Helgu
  */
 
@@ -43,17 +46,14 @@ public class USTooltip extends ERXComponent {
 		return a;
 	}
 
-	// TODO Create a cover for this ( also in USModalDialog )
 	@Override
 	public void appendToResponse( WOResponse response, WOContext context ) {
-		// The prototype js files are in the AJAX framework, so we need to use 
-		// the method from AjaxUtils to load them correctly
 		AjaxUtils.addScriptResourceInHead( context, response, "prototype.js" );
 		super.appendToResponse( response, context );
 	}
 
 	/**
-	 * Get a unique name( id ) of for the HTML/JS
+	 * @return A unique identifier for the component, used in the javascript.
 	 */
 	public String fieldName() {
 		if( _fieldName == null ) {

@@ -8,16 +8,16 @@ import com.webobjects.foundation.NSArray;
 import er.extensions.components.ERXStatelessComponent;
 
 /**
- * Displays a hierarchical list.
+ * A hierarchical repetition.
  * 
  * Bindings:
+ * [item] 		: The item currently being iterated over
+ * [list] 		: An NSArray of root elements to display
+ * [sublist] 	: The list of subelements to display. An NSArray contained in the item - "item.someArray"
+ * [index] 		: index of the repetition in each level of the hierarchy.
+ * [isOrdered]	: indicates if we want to generate an ordered or unordered list (ol or ul)
  * 
- * item The item currently being iterated over
- * list An NSArray of root elements to display
- * sublist The list of subelements to display. An NSArray contained in the item - "item.someArray"
- * index index of the repetition in each level of the hierarchy.
- * isOrdered indicates if we want to generate an ordered or unordered list.
- * @author Hugi Þórðarson
+ * @author Hugi Thordarson
  */
 
 public class USNestedList extends ERXStatelessComponent {

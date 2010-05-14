@@ -8,7 +8,7 @@ import com.webobjects.foundation.*;
 /**
  * For editing an array of objects.
  * 
- * @author Hugi Þórðarson
+ * @author Hugi Thordarson
  */
 
 public class USPlistEditorArray extends USPlistEditorAbstract {
