@@ -9,8 +9,8 @@ import er.extensions.components.ERXStatelessComponent;
 /**
  * A component for Facebook's new "Like Box"-thingamabob.
  * 
- * The only required binding for this component is "id", which
- * is the id for your FaceBook page.
+ * The only required binding is "id", the id of your FaceBook page.
+ * Other bindings will use FB's provided default values if not set.
  * 
  * Further documentation can be found on FB's developer site:
  * http://developers.facebook.com/docs/reference/plugins/like-box
