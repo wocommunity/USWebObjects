@@ -55,7 +55,7 @@ public class USArrayUtilities {
 
 	/**
 	 * Slices [array] into [columns] number of arrays, adding [paddingObject] to fill up the last column
-	 */
+	 *
 	public static <E> NSArray<NSArray<E>> arrayByTransposingArray( NSArray<E> array, int columns, E paddingObject ) {
 
 		if( !USArrayUtilities.arrayHasObjects( array ) ) {
@@ -90,6 +90,7 @@ public class USArrayUtilities {
 
 		return rowArray;
 	}
+	*/
 
 	/**
 	 * Returns a new array sorted according to the icelandic alphabet on the given keypath of the array objects

@@ -32,7 +32,7 @@ public class USEOUtilities {
 	 * Accepts an attribute name and a list of space-separated values and constructs an EOOrQualifier.
 	 * 
 	 * @param attributeName name of the attribute to qualify against
-	 * @param valueString space-separated string og values to match
+	 * @param valueString space-separated string of values to match
 	 * @return EOOrQualifier based on the attribute name and values to match
 	 */
 	public static EOQualifier qualifierMatchingAnyValue( String attributeName, String valueString ) {
@@ -86,8 +86,9 @@ public class USEOUtilities {
 		fs.setFetchLimit( 1 );
 		NSArray<EOEnterpriseObject> fetched = ec.objectsWithFetchSpecification( fs );
 
-		if( USArrayUtilities.arrayHasObjects( fetched ) )
+		if( USArrayUtilities.arrayHasObjects( fetched ) ) {
 			return (T)fetched.objectAtIndex( 0 );
+		}
 
 		return null;
 	}
@@ -127,11 +128,13 @@ public class USEOUtilities {
 	public static EOQualifier qualifierBetweenDates( String keypath, NSTimestamp dateFrom, NSTimestamp dateTo ) {
 		NSMutableArray<EOQualifier> qualArr = new NSMutableArray<EOQualifier>();
 
-		if( dateFrom != null )
+		if( dateFrom != null ) {
 			qualArr.addObject( new EOKeyValueQualifier( keypath, EOQualifier.QualifierOperatorGreaterThanOrEqualTo, dateFrom ) );
+		}
 
-		if( dateTo != null )
+		if( dateTo != null ) {
 			qualArr.addObject( new EOKeyValueQualifier( keypath, EOQualifier.QualifierOperatorLessThan, dateTo ) );
+		}
 
 		return new ERXAndQualifier( qualArr );
 	}
@@ -139,7 +142,7 @@ public class USEOUtilities {
 	/**
 	 * Cleans out every record in a database table. Returns the number of rows deleted.
 	 */
-	public static int deleteAllRecordsForEntityNamed( EOEditingContext ec, String entityName ) {
+	public static int deleteObjectsForEntityNamed( EOEditingContext ec, String entityName ) {
 
 		NSArray<EOEnterpriseObject> a = EOUtilities.objectsForEntityNamed( ec, entityName );
 		int count = a.count();
@@ -148,8 +151,6 @@ public class USEOUtilities {
 			ec.deleteObject( eo );
 		}
 
-		ec.saveChanges();
-
 		return count;
 	}
 
@@ -157,7 +158,7 @@ public class USEOUtilities {
 	 * Fetches the most recent record matching the given type and value.
 	 */
 	public static EOGenericRecord mostRecentRecord( EOEditingContext ec, String entityName, String keyPath, String value, String timestampAttributeName ) {
-		NSArray sortOrderings = new NSArray( new EOSortOrdering( timestampAttributeName, EOSortOrdering.CompareDescending ) );
+		NSArray<EOSortOrdering> sortOrderings = new NSArray<EOSortOrdering>( new EOSortOrdering( timestampAttributeName, EOSortOrdering.CompareDescending ) );
 		EOQualifier q = new EOKeyValueQualifier( keyPath, EOQualifier.QualifierOperatorEqual, value );
 		EOFetchSpecification fs = new EOFetchSpecification( entityName, q, sortOrderings );
 		fs.setFetchLimit( 1 );

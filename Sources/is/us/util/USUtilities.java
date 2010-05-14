@@ -55,11 +55,7 @@ public class USUtilities {
 	 */
 	public static boolean booleanFromObject( Object o ) {
 
-		if( o == null ) {
-			return false;
-		}
-
-		if( o instanceof NSKeyValueCoding.Null ) {
+		if( isNull( o ) ) {
 			return false;
 		}
 
@@ -95,7 +91,7 @@ public class USUtilities {
 	 */
 	public static Integer integerFromObject( Object o ) {
 
-		if( o == null ) {
+		if( isNull( o ) ) {
 			return null;
 		}
 
@@ -120,7 +116,7 @@ public class USUtilities {
 	 */
 	public static Double doubleFromObject( Object o ) {
 
-		if( o == null ) {
+		if( isNull( o ) ) {
 			return null;
 		}
 
@@ -141,11 +137,7 @@ public class USUtilities {
 	 */
 	public static BigDecimal bigDecimalFromObject( Object o ) {
 
-		if( o == null ) {
-			return null;
-		}
-
-		if( o == NSKeyValueCoding.NullValue ) {
+		if( isNull( o ) ) {
 			return null;
 		}
 
@@ -153,11 +145,19 @@ public class USUtilities {
 	}
 
 	/**
+	 * @param object The object to check
+	 * @return true if an object is null, or NSKeyValueCoding.NullValue.
+	 */
+	private static final boolean isNull( Object object ) {
+		return (object == null) || (object instanceof NSKeyValueCoding.Null);
+	}
+
+	/**
 	 * Finds out the value of Object and attempts to coerce it's value to a String
 	 */
 	public static String stringFromObject( Object o ) {
 
-		if( o == null ) {
+		if( isNull( o ) ) {
 			return null;
 		}
 
@@ -267,8 +267,9 @@ public class USUtilities {
 	 */
 	public static NSMutableDictionary dictionaryFromString( String s ) {
 
-		if( USStringUtilities.stringHasValue( s ) )
+		if( USStringUtilities.stringHasValue( s ) ) {
 			return ((NSDictionary)NSPropertyListSerialization.propertyListFromString( s )).mutableClone();
+		}
 
 		return new NSMutableDictionary();
 	}
@@ -279,8 +280,9 @@ public class USUtilities {
 	public static String keyForValueFromStringDictionary( String value, NSDictionary<String, String> dictionary ) {
 		NSArray<String> a = dictionary.allKeysForObject( value );
 
-		if( USArrayUtilities.arrayHasObjects( a ) )
+		if( USArrayUtilities.arrayHasObjects( a ) ) {
 			return a.objectAtIndex( 0 );
+		}
 
 		return null;
 	}
@@ -333,7 +335,9 @@ public class USUtilities {
 			b.append( ": " );
 
 			try {
-				b.append( f.get( o ) );
+				if( f.isAccessible() ) {
+					b.append( f.get( o ) );
+				}
 			}
 			catch( IllegalArgumentException e ) {
 				e.printStackTrace();

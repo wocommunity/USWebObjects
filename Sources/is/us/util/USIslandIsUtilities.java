@@ -2,8 +2,6 @@ package is.us.util;
 
 import is.us.wo.util.USHTTPUtilities;
 
-import org.slf4j.*;
-
 import com.webobjects.appserver.*;
 
 /**
@@ -15,11 +13,6 @@ import com.webobjects.appserver.*;
  */
 
 public class USIslandIsUtilities {
-
-	/**
-	 * Logger
-	 */
-	private static final Logger logger = LoggerFactory.getLogger( USIslandIsUtilities.class );
 
 	/**
 	 * IP-address of the localhost.
