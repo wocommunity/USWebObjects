@@ -1,4 +1,0 @@
-BUTTON: WOSubmitButton {
-	action = selectDate;
-	value = dateAsString;
-}

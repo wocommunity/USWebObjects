@@ -11,13 +11,15 @@ import com.webobjects.foundation.*;
 import er.extensions.components.ERXComponent;
 
 /**
+ * For picking date and time from a menu.
+ * 
  * @author Hugi Þórðarson
  */
 
 public class USDateAndTimePicker extends ERXComponent {
 
 	private GregorianCalendar calendar;
-	public NSKeyValueCoding record;
+	public NSKeyValueCodingAdditions record;
 	public WOComponent componentToReturn;
 	public String key;
 
@@ -126,32 +128,40 @@ public class USDateAndTimePicker extends ERXComponent {
 		}
 	}
 
-	public NSArray days() {
+	public NSArray<String> days() {
 		return arrayWithNumberStringsInRange( 1, 31 );
 	}
 
-	public NSArray months() {
+	public NSArray<String> months() {
 		return arrayWithNumberStringsInRange( 1, 12 );
 	}
 
-	public NSArray years() {
+	public NSArray<String> years() {
 		return arrayWithNumberStringsInRange( 2000, 2020 );
 	}
 
-	public NSArray hours() {
+	public NSArray<String> hours() {
 		return arrayWithNumberStringsInRange( 0, 23 );
 	}
 
-	public NSArray minutes() {
+	public NSArray<String> minutes() {
 		return arrayWithNumberStringsInRange( 0, 59 );
 	}
 
-	public NSArray arrayWithNumberStringsInRange( int start, int end ) {
+	/**
+	 * Constructs an array of strings with all numbers the given numeric range.
+	 * 
+	 * @param start The first number (included)
+	 * @param end The last number (included)
+	 * @return An array of Strings with the given numbers
+	 */
+	private static NSArray<String> arrayWithNumberStringsInRange( int start, int end ) {
 		int i = start;
-		NSMutableArray resultArray = new NSMutableArray();
+		NSMutableArray<String> resultArray = new NSMutableArray<String>();
 
-		while( i < (end + 1) )
+		while( i < (end + 1) ) {
 			resultArray.addObject( String.valueOf( i++ ) );
+		}
 
 		return resultArray.immutableClone();
 	}
@@ -164,20 +174,20 @@ public class USDateAndTimePicker extends ERXComponent {
 		return componentToReturn;
 	}
 
+	/**
+	 * Note that we invoke saveChanges on the record's editing context if it's an EOEnterpriseObject.
+	 * 
+	 * 
+	 * @return The previous component.
+	 */
 	public WOActionResults submit() {
+		record.takeValueForKeyPath( timestamp(), key );
+
 		if( record instanceof EOEnterpriseObject ) {
-			((EOEnterpriseObject)record).takeValueForKeyPath( timestamp(), key );
 			((EOEnterpriseObject)record).editingContext().saveChanges();
-		}
-		else if( record instanceof NSKeyValueCodingAdditions ) {
-			((NSKeyValueCodingAdditions)record).takeValueForKeyPath( timestamp(), key );
-		}
-		else {
-			record.takeValueForKey( timestamp(), key );
 		}
 
 		componentToReturn.ensureAwakeInContext( context() );
-
 		return componentToReturn;
 	}
 }

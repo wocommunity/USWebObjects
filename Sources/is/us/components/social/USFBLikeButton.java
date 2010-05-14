@@ -1,4 +1,4 @@
-package is.us.components;
+package is.us.components.social;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -46,7 +46,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 	 * @return The colorscheme to use, one of "light", "dark" or "evil". Defaults to "light"
 	 */
 	public String colorscheme() {
-		return stringValueForBinding( "colorscheme", "450" );
+		return stringValueForBinding( "colorscheme", "light" );
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package is.us.components;
+package is.us.components.social;
 
 import com.webobjects.appserver.WOContext;
 
