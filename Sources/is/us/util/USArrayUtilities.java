@@ -87,6 +87,33 @@ public class USArrayUtilities {
 	}
 
 	/**
+	 * Constructs a new array containing the specified number of random objects form the source array.
+	 * If the array is null, an empty array is returned.
+	 * If the source array is shorter or equal in length to the count, the original array is returned randomized.
+	 * 
+	 * @param array The array to read from.
+	 * @param count The max size of the return array.
+	 */
+	public static <E> NSArray<E> randomObjectsFromArray( NSArray<E> array, int count ) {
+
+		if( !arrayHasObjects( array ) ) {
+			return NSArray.emptyArray();
+		}
+
+		if( count >= array.count() ) {
+			return arrayByRandomizingArray( array );
+		}
+
+		NSMutableArray<E> result = new NSMutableArray<E>();
+
+		for( int i = count; i > 0; i-- ) {
+			result.addObject( randomObjectFromArray( array ) );
+		}
+
+		return result.immutableClone();
+	}
+
+	/**
 	 * Randomizes the objects in an array
 	 */
 	public static <E> NSArray<E> arrayByRandomizingArray( NSArray<E> array ) {
@@ -106,7 +133,7 @@ public class USArrayUtilities {
 			originalArray.removeObject( o );
 		}
 
-		return resultArray;
+		return resultArray.immutableClone();
 	}
 
 	/**
