@@ -83,7 +83,8 @@ public class USArrayUtilities {
 
 		int count = array.count();
 		int number = USC.RANDOM.nextInt( count );
-		return array.objectAtIndex( number );
+		E object = array.objectAtIndex( number );
+		return object;
 	}
 
 	/**
@@ -125,9 +126,7 @@ public class USArrayUtilities {
 		NSMutableArray<E> originalArray = array.mutableClone();
 		NSMutableArray<E> resultArray = new NSMutableArray<E>();
 
-		Enumeration<E> e = originalArray.objectEnumerator();
-
-		while( e.hasMoreElements() ) {
+		while( originalArray.count() > 0 ) {
 			E o = randomObjectFromArray( originalArray );
 			resultArray.addObject( o );
 			originalArray.removeObject( o );
