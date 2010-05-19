@@ -201,7 +201,7 @@ public class USArrayUtilities {
 		NSMutableArray<E> alreadyCheckedObjects = new NSMutableArray<E>();
 		NSMutableArray<E> duplicates = new NSMutableArray<E>();
 
-		for( Object o : a ) {
+		for( E o : a ) {
 			if( alreadyCheckedObjects.containsObject( o ) && !duplicates.containsObject( o ) ) {
 				duplicates.addObject( o );
 			}
