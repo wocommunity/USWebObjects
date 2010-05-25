@@ -1,4 +1,4 @@
-<span id='<webobject name = FIELD_NAME />'><webobject name="LINK_ELEMENT"><webobject name="CONTENT" /></webobject></span>
-<script type = "text/javascript">
-   enableTooltips("<webobject name=FIELD_NAME />", 'a' );
+<wo:container elementName="span" id="$fieldName"><wo:link class="$style" alt="" title="$value" href="$url" target="$target"><wo:content /></wo:link></wo:container>
+<script type="text/javascript">
+   enableTooltips('<wo:str value="$fieldName" />', 'a' );
 </script>

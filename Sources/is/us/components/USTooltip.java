@@ -9,19 +9,11 @@ import er.extensions.foundation.ERXStringUtilities;
 
 /**
  * Display floating tooltip above an HTML element
- * 
- * Bindings:
- * []		: 
- * 
- * @author Logi Helgu
  */
 
 public class USTooltip extends ERXComponent {
 
 	private String _fieldName;
-	public String value;
-	public String url;
-	public String target;
 
 	/**
 	 * set true to hide the CSS style when tooltipping other elements than strings
@@ -68,5 +60,26 @@ public class USTooltip extends ERXComponent {
 	 */
 	public String getStyle() {
 		return hideCSSStyle ? "" : "tooltipLink";
+	}
+
+	/**
+	 * @return The value of the tooltip.
+	 */
+	public String value() {
+		return stringValueForBinding( "value" );
+	}
+
+	/**
+	 * WTF?
+	 */
+	public String url() {
+		return stringValueForBinding( "url" );
+	}
+
+	/**
+	 * WTF?
+	 */
+	public String target() {
+		return stringValueForBinding( "target" );
 	}
 }
