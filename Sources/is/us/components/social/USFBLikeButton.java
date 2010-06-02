@@ -1,5 +1,8 @@
 package is.us.components.social;
 
+import is.us.util.USStringUtilities;
+import is.us.wo.util.USHTTPUtilities;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -87,7 +90,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 		String url = stringValueForBinding( "url" );
 
 		if( url == null ) {
-			url = USFBUtil.absoluteURL( (ERXRequest)context().request() );
+			url = USHTTPUtilities.absoluteURL( (ERXRequest)context().request() );
 		}
 
 		return URLEncoder.encode( url, "UTF-8" );
@@ -106,7 +109,7 @@ public class USFBLikeButton extends ERXStatelessComponent {
 		parameters.put( "action", verb() );
 		parameters.put( "colorscheme", colorscheme() );
 
-		return USFBUtil.constructURLStringWithParameters( "http://www.facebook.com/plugins/like.php", parameters );
+		return USStringUtilities.constructURLStringWithParameters( "http://www.facebook.com/plugins/like.php", parameters );
 	}
 
 	/**

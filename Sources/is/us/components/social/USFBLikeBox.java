@@ -1,5 +1,7 @@
 package is.us.components.social;
 
+import is.us.util.USStringUtilities;
+
 import java.util.*;
 
 import com.webobjects.appserver.WOContext;
@@ -85,7 +87,7 @@ public class USFBLikeBox extends ERXStatelessComponent {
 		parameters.put( "header", header() );
 		parameters.put( "height", height() );
 
-		return USFBUtil.constructURLStringWithParameters( "http://www.facebook.com/plugins/likebox.php", parameters );
+		return USStringUtilities.constructURLStringWithParameters( "http://www.facebook.com/plugins/likebox.php", parameters );
 	}
 
 	/**

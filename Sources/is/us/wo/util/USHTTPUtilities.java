@@ -11,6 +11,7 @@ import org.slf4j.*;
 import com.webobjects.appserver.*;
 import com.webobjects.foundation.*;
 
+import er.extensions.appserver.ERXRequest;
 import er.extensions.foundation.ERXRefByteArrayOutputStream;
 
 /**
@@ -616,5 +617,23 @@ public class USHTTPUtilities {
 			filename = filename + ".pdf";
 
 		return responseWithDataAndMimeType( filename, data, USC.MIME_TYPE_PDF );
+	}
+
+	/**
+	 * @return The absolute URL that was used to invoke the given request.
+	 */
+	public static String absoluteURL( ERXRequest request ) {
+		StringBuilder b = new StringBuilder();
+
+		if( request.isSecure() ) {
+			b.append( "https://" );
+		}
+		else {
+			b.append( "http://" );
+		}
+
+		b.append( request.remoteHostName() );
+		b.append( request.uri() );
+		return b.toString();
 	}
 }
