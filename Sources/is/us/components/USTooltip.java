@@ -4,14 +4,14 @@ import com.webobjects.appserver.*;
 import com.webobjects.foundation.*;
 
 import er.ajax.AjaxUtils;
-import er.extensions.components.ERXComponent;
+import er.extensions.components.ERXNonSynchronizingComponent;
 import er.extensions.foundation.ERXStringUtilities;
 
 /**
  * Display floating tooltip above an HTML element
  */
 
-public class USTooltip extends ERXComponent {
+public class USTooltip extends ERXNonSynchronizingComponent {
 
 	private String _fieldName;
 
