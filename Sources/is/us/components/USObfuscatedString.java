@@ -24,7 +24,7 @@ public class USObfuscatedString extends ERXStatelessComponent {
 	}
 
 	/**
-	 * @return Te obfuscated value
+	 * @return The obfuscated value
 	 */
 	public String obfuscatedValue() {
 
