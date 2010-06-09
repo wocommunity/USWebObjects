@@ -1,0 +1,3 @@
+STRING: WOString {
+	value = mungedValue;
+}
