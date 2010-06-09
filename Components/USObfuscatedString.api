@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wodefinitions>
+    <wo class="USObfuscatedString" wocomponentcontent="false">    <binding name="value"/>
+        <validation message="'value' is a required binding.">
+            <unbound name="value"/>
+        </validation>
+    </wo>
+</wodefinitions>
