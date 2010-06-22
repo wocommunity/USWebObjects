@@ -29,7 +29,7 @@ public class USTooltip extends ERXNonSynchronizingComponent {
 	}
 
 	@Override
-	protected com.webobjects.foundation.NSArray<String> additionalJavascriptFiles() {
+	protected NSArray<String> additionalJavascriptFiles() {
 		return new NSArray<String>( "js/BubbleTooltips.js" );
 	}
 
