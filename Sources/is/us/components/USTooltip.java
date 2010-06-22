@@ -8,11 +8,11 @@ import er.extensions.components.ERXNonSynchronizingComponent;
 import er.extensions.foundation.ERXStringUtilities;
 
 /**
- * For displaying a tooltip for an HTML element.
+ * For adding tooltips to HTML elements.
  * 
  * Bindings:
- *   value   : The text to display in the tooltip.
- *   noStyle : disables css styling of the tooltip (you'll usually want to set this to "true" if you're adding tooltips to elements other than strings).
+ *  value   : The text to display in the tooltip.
+ *  noStyle : Disables styling of the tooltip (you'll usually want to set this to "true" if adding tooltips to anything other than a string).
  */
 
 public class USTooltip extends ERXNonSynchronizingComponent {
