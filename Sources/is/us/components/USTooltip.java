@@ -1,24 +1,23 @@
 package is.us.components;
 
 import com.webobjects.appserver.*;
-import com.webobjects.foundation.*;
+import com.webobjects.foundation.NSArray;
 
 import er.ajax.AjaxUtils;
 import er.extensions.components.ERXNonSynchronizingComponent;
 import er.extensions.foundation.ERXStringUtilities;
 
 /**
- * Display floating tooltip above an HTML element
+ * For displaying a tooltip for an HTML element.
+ * 
+ * Bindings:
+ *   value   : The text to display in the tooltip.
+ *   noStyle : disables css styling of the tooltip (you'll usually want to set this to "true" if you're adding tooltips to elements other than strings).
  */
 
 public class USTooltip extends ERXNonSynchronizingComponent {
 
-	private String _fieldName;
-
-	/**
-	 * set true to hide the CSS style when tooltipping other elements than strings
-	 */
-	public boolean hideCSSStyle = false;
+	private String _uniqueID;
 
 	public USTooltip( WOContext context ) {
 		super( context );
@@ -26,60 +25,49 @@ public class USTooltip extends ERXNonSynchronizingComponent {
 
 	@Override
 	protected NSArray<String> additionalCSSFiles() {
-		NSMutableArray<String> a = new NSMutableArray<String>();
-		a.addObject( "css/tooltips.css" );
-		return a;
+		return new NSArray<String>( "css/USTooltip.css" );
 	}
 
 	@Override
 	protected com.webobjects.foundation.NSArray<String> additionalJavascriptFiles() {
-		NSMutableArray<String> a = new NSMutableArray<String>();
-		a.addObject( "js/BubbleTooltips.js" );
-		return a;
+		return new NSArray<String>( "js/BubbleTooltips.js" );
 	}
 
 	@Override
 	public void appendToResponse( WOResponse response, WOContext context ) {
-		AjaxUtils.addScriptResourceInHead( context, response, "prototype.js" );
+		AjaxUtils.addScriptResourceInHead( context, response, "Ajax", "prototype.js" );
 		super.appendToResponse( response, context );
 	}
 
 	/**
-	 * @return A unique identifier for the component, used in the javascript.
+	 * @return A unique identifier for the component, used by the javascript.
 	 */
-	public String fieldName() {
-		if( _fieldName == null ) {
-			_fieldName = "USTooltip" + ERXStringUtilities.replaceStringByStringInString( ".", "_", context().elementID().toString() );
+	public String uniqueID() {
+		if( _uniqueID == null ) {
+			_uniqueID = componentName() + ERXStringUtilities.replaceStringByStringInString( ".", "_", context().elementID().toString() );
 		}
 
-		return _fieldName;
+		return _uniqueID;
 	}
 
 	/**
-	 * Returns the CSS style to use if hideStyle is not true
+	 * @return The CSS class of the tooltip element.
 	 */
-	public String getStyle() {
-		return hideCSSStyle ? "" : "tooltipLink";
+	public String cssClass() {
+		return noStyle() ? null : "tooltipLink";
 	}
 
 	/**
-	 * @return The value of the tooltip.
+	 * @return The string value of the tooltip.
 	 */
 	public String value() {
 		return stringValueForBinding( "value" );
 	}
 
 	/**
-	 * WTF?
+	 * @return Binding, you,ll probably want to set this to true if adding tips to elements other than strings.
 	 */
-	public String url() {
-		return stringValueForBinding( "url" );
-	}
-
-	/**
-	 * WTF?
-	 */
-	public String target() {
-		return stringValueForBinding( "target" );
+	public boolean noStyle() {
+		return booleanValueForBinding( "noStyle", false );
 	}
 }
