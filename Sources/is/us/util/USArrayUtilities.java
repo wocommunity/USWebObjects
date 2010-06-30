@@ -26,7 +26,7 @@ public class USArrayUtilities {
 
 	/**
 	 * Returns an array of the first letters of the keyPath of anArray
-	 * Note: whitespace as a first letter is ignored.
+	 * Note: Strings are trimmed, meaning whitespace before strings is ignored.
 	 */
 	public static NSArray<String> firstLettersForKeyPathInArray( String keyPath, NSArray<? extends NSKeyValueCoding> array ) {
 
