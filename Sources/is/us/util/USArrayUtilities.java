@@ -6,7 +6,7 @@ import java.util.*;
 
 import org.slf4j.*;
 
-import com.webobjects.eocontrol.EOSortOrdering;
+import com.webobjects.eocontrol.*;
 import com.webobjects.foundation.*;
 
 import er.extensions.foundation.ERXArrayUtilities;
@@ -308,28 +308,58 @@ public class USArrayUtilities {
 	}
 
 	/**
+	 * Groups an array by multiple keypaths
+	 * 
+	 * @param objects An array of objects to group.
+	 * @param keyPaths The keypaths to group the objects by.
+	 * @return A dictionary with the "distinct" values as a key, and the objects conforming to that distinct value set as object. 
+	 */
+	public static <E extends NSKeyValueCodingAdditions> NSDictionary<NSDictionary<String, Object>, NSArray<E>> arrayGroupedByKeyPaths( NSArray<E> objects, NSArray<String> keyPaths ) {
+
+		if( objects == null ) {
+			return NSDictionary.emptyDictionary();
+		}
+
+		if( keyPaths == null ) {
+			throw new IllegalArgumentException( "The 'keyPaths' parameter must not be null" );
+		}
+
+		NSArray<NSDictionary<String, Object>> distinctObjects = distinctCombinationsWithKeyPaths( objects, keyPaths );
+
+		NSMutableDictionary<NSDictionary<String, Object>, NSArray<E>> result = new NSMutableDictionary<NSDictionary<String, Object>, NSArray<E>>();
+
+		for( NSDictionary<String, Object> distinctObject : distinctObjects ) {
+			EOQualifier distinctQualifier = EOQualifier.qualifierToMatchAllValues( distinctObject );
+			NSArray<E> filteredArray = EOQualifier.filteredArrayWithQualifier( objects, distinctQualifier );
+			result.setObjectForKey( filteredArray, distinctObject );
+		}
+
+		return result;
+	}
+
+	/**
 	 * Construct an array of dictionaries with all value combinations in the given keyPaths.
 	 * 
 	 * @param objects The object array to go through
 	 * @param keyPaths The keyPaths to look at 
 	 * @return An array of distinct objects
 	 */
-	public static NSArray<NSDictionary<String, Object>> distinctCombinationsWithKeyPaths( NSArray objects, NSArray<String> keyPaths ) {
+	public static <E extends NSKeyValueCodingAdditions> NSArray<NSDictionary<String, Object>> distinctCombinationsWithKeyPaths( NSArray<E> objects, NSArray<String> keyPaths ) {
 
 		if( objects == null ) {
 			return NSArray.emptyArray();
 		}
 
 		if( keyPaths == null ) {
-			throw new IllegalArgumentException( "The [keyPaths] parameter must not be null" );
+			throw new IllegalArgumentException( "The 'keyPaths' parameter must not be null" );
 		}
 
 		NSMutableSet<NSDictionary<String, Object>> a = new NSMutableSet<NSDictionary<String, Object>>();
 
-		for( Object object : objects ) {
+		for( E object : objects ) {
 			NSMutableDictionary<String, Object> d = new NSMutableDictionary<String, Object>();
 			for( String keyPath : keyPaths ) {
-				Object value = ((NSKeyValueCodingAdditions)object).valueForKeyPath( keyPath );
+				Object value = object.valueForKeyPath( keyPath );
 
 				if( value != null ) {
 					d.setObjectForKey( value, keyPath );
@@ -348,6 +378,15 @@ public class USArrayUtilities {
 	 * Fetch the distinct values of a keyPath.
 	 */
 	public static NSArray distinctValuesForKeyPath( NSArray objects, String keyPath ) {
+
+		if( objects == null ) {
+			return NSArray.emptyArray();
+		}
+
+		if( keyPath == null ) {
+			throw new IllegalArgumentException( "The 'keyPath' parameter must not be null" );
+		}
+
 		NSArray result = (NSArray)objects.valueForKeyPath( keyPath );
 		result = ERXArrayUtilities.arrayWithoutDuplicates( result );
 		return result;
