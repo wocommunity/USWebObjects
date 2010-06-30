@@ -9,7 +9,6 @@ import org.slf4j.*;
 import com.webobjects.eoaccess.*;
 import com.webobjects.eocontrol.*;
 import com.webobjects.foundation.*;
-import com.webobjects.foundation.NSComparator.ComparisonException;
 
 import er.extensions.qualifiers.ERXAndQualifier;
 
@@ -248,18 +247,18 @@ public class USEOUtilities {
 
 	/**
 	 * Returns the letters of the alphabet that words in the given key for the given entity start with in uppercase.
-	 * 
-	 * TODO: Use raw rows.
 	 */
 	public static NSArray<String> firstLettersForKeyPathInEntity( EOEditingContext ec, String keyPath, String entityName ) {
 
 		EOFetchSpecification fs = new EOFetchSpecification( entityName, null, null );
+		fs.setFetchesRawRows( true );
+		fs.setRawRowKeyPaths( new NSArray<String>( keyPath ) );
 
-		NSArray<EOEnterpriseObject> a = ec.objectsWithFetchSpecification( fs );
+		NSArray<NSDictionary> fetched = ec.objectsWithFetchSpecification( fs );
 
 		NSMutableSet<String> set = new NSMutableSet<String>();
 
-		for( EOEnterpriseObject nextObject : a ) {
+		for( NSDictionary nextObject : fetched ) {
 			Object value = nextObject.valueForKeyPath( keyPath );
 
 			if( value instanceof String && ((String)value).length() > 0 ) {
@@ -268,12 +267,6 @@ public class USEOUtilities {
 			}
 		}
 
-		try {
-			return set.allObjects().sortedArrayUsingComparator( USGenericComparator.IcelandicAscendingComparator );
-		}
-		catch( ComparisonException e ) {
-			logger.error( "Could not sort set", e );
-			return set.allObjects();
-		}
+		return USArrayUtilities.sortedArrayUsingIcelandicComparator( set.allObjects() );
 	}
 }
