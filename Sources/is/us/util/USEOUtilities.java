@@ -54,10 +54,6 @@ public class USEOUtilities {
 	 */
 	public static EOEnterpriseObject objectMatchingKeyAndValue( EOEditingContext ec, String entityName, String attributeName, Object value ) {
 
-		if( value == null ) {
-			return null;
-		}
-
 		EOQualifier q = new EOKeyValueQualifier( attributeName, EOQualifier.QualifierOperatorEqual, value );
 		EOFetchSpecification fs = new EOFetchSpecification( entityName, q, null );
 		fs.setFetchLimit( 1 );
@@ -76,10 +72,6 @@ public class USEOUtilities {
 	 */
 	public static <T> T objectMatchingKeyAndValue( EOEditingContext ec, Class<T> clazz, String attributeName, Object value ) {
 
-		if( value == null ) {
-			return null;
-		}
-
 		EOQualifier q = new EOKeyValueQualifier( attributeName, EOQualifier.QualifierOperatorEqual, value );
 		EOFetchSpecification fs = new EOFetchSpecification( clazz.getSimpleName(), q, null );
 		fs.setFetchLimit( 1 );
@@ -90,6 +82,29 @@ public class USEOUtilities {
 		}
 
 		return null;
+	}
+
+	/**
+	 * TODO: Missing comments
+	 */
+	public static <E> NSArray<E> objectsMatchingKeyAndValues( EOEditingContext editingContext, Class<E> entityClass, String keyPath, NSArray values ) {
+
+		if( !USArrayUtilities.arrayHasObjects( values ) ) {
+			return NSArray.emptyArray();
+		}
+
+		Enumeration e = values.objectEnumerator();
+		NSMutableArray<E> resultArray = new NSMutableArray<E>();
+
+		while( e.hasMoreElements() ) {
+			E o = (E)objectMatchingKeyAndValue( editingContext, entityClass.getSimpleName(), keyPath, e.nextElement() );
+
+			if( o != null ) {
+				resultArray.addObject( o );
+			}
+		}
+
+		return resultArray;
 	}
 
 	/**
@@ -220,29 +235,6 @@ public class USEOUtilities {
 		EOFetchSpecification fs = new EOFetchSpecification( entityName, q, null );
 		NSArray<EOEnterpriseObject> eos = ec.objectsWithFetchSpecification( fs );
 		return eos;
-	}
-
-	/**
-	 * TODO: Missing comments
-	 */
-	public static <E> NSArray<E> fetchObjects( EOEditingContext editingContext, Class<E> entityClass, String key, NSArray<String> objectArray ) {
-
-		if( !USArrayUtilities.arrayHasObjects( objectArray ) ) {
-			return NSArray.emptyArray();
-		}
-
-		Enumeration<String> e = objectArray.objectEnumerator();
-		NSMutableArray<E> resultArray = new NSMutableArray<E>();
-
-		while( e.hasMoreElements() ) {
-			E o = (E)objectMatchingKeyAndValue( editingContext, entityClass.getSimpleName(), key, e.nextElement() );
-
-			if( o != null ) {
-				resultArray.addObject( o );
-			}
-		}
-
-		return resultArray;
 	}
 
 	/**
