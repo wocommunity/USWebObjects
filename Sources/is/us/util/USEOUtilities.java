@@ -67,8 +67,14 @@ public class USEOUtilities {
 	}
 
 	/**
-	 * Fetches an object matching the key-value pair.
-	 * Yeah, yeah, I know EOUtilities offers the same functionality, but I'm a control freak.
+	 * Fetches a single object matching the given criteria.
+	 * If multiple objects match the criteria, you'll have no idea what object you get back.
+	 * 
+	 * @param ec THe EditingContext to use.
+	 * @param clazz The entity class
+	 * @param attributeName the name of the attribute to fetch by.
+	 * @param value The value to fetch
+	 * @return An object matching the criteria
 	 */
 	public static <T> T objectMatchingKeyAndValue( EOEditingContext ec, Class<T> clazz, String attributeName, Object value ) {
 
@@ -85,19 +91,18 @@ public class USEOUtilities {
 	}
 
 	/**
-	 * TODO: Missing comments
+	 * Fetches objects matching the key-value pairs.
 	 */
-	public static <E> NSArray<E> objectsMatchingKeyAndValues( EOEditingContext editingContext, Class<E> entityClass, String keyPath, NSArray values ) {
+	public static <E> NSArray<E> objectsMatchingKeyAndValues( EOEditingContext editingContext, Class<E> entityClass, String attributeName, NSArray values ) {
 
 		if( !USArrayUtilities.arrayHasObjects( values ) ) {
 			return NSArray.emptyArray();
 		}
 
-		Enumeration e = values.objectEnumerator();
 		NSMutableArray<E> resultArray = new NSMutableArray<E>();
 
-		while( e.hasMoreElements() ) {
-			E o = (E)objectMatchingKeyAndValue( editingContext, entityClass.getSimpleName(), keyPath, e.nextElement() );
+		for( Object value : values ) {
+			E o = (E)objectMatchingKeyAndValue( editingContext, entityClass.getSimpleName(), attributeName, value );
 
 			if( o != null ) {
 				resultArray.addObject( o );
@@ -216,12 +221,7 @@ public class USEOUtilities {
 	}
 
 	/**
-	 * TODO: Missing comments
-	 *  
-	 * @param ec
-	 * @param entityName
-	 * @param rawRows
-	 * @return
+	 * Fetch EOs corresponding to the raw rows.
 	 */
 	public static NSArray<EOEnterpriseObject> convertRawRowsToEOs( EOEditingContext ec, String entityName, NSArray<NSDictionary> rawRows ) {
 		NSMutableArray<EOQualifier> allQualifier = new NSMutableArray<EOQualifier>();
