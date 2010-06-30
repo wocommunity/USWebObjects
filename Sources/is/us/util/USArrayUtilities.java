@@ -159,8 +159,8 @@ public class USArrayUtilities {
 	/**
 	 * Filters an array, so that only the first entry with a distinct value is used.
 	 * 
-	 * Example: To filter an array of VEHI objects to get only the newest record for each vehicledate.
-	 * filterArrayForUniqueRecords( vehicles, Vehi.PERMNO, Vehi.VEHICLEDATE.desc() )
+	 * Example: To filter an array of objects that have a key called "timestamp" to get only the newest record for each "id".
+	 * filterArrayForUniqueRecords( objects, SomeEntity.ID, SomeEntity.TIMESTAMP.descs() )
 	 * 
 	 * @param array And array containing objects implementing KVC.
 	 * @param keypath The keypath for the unique value in the returned array. For example, a vehicle's permno.
@@ -300,11 +300,15 @@ public class USArrayUtilities {
 			return array;
 		}
 
-		if( array.count() > maxCount ) {
-			return array.subarrayWithRange( new NSRange( 0, maxCount ) );
+		if( maxCount < 0 ) {
+			throw new IllegalArgumentException( "The parameter 'maxCount' must be a positive integer" );
 		}
 
-		return array;
+		if( array.count() <= maxCount ) {
+			return array;
+		}
+
+		return array.subarrayWithRange( new NSRange( 0, maxCount ) );
 	}
 
 	/**
