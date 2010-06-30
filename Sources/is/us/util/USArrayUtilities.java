@@ -9,6 +9,8 @@ import org.slf4j.*;
 import com.webobjects.eocontrol.EOSortOrdering;
 import com.webobjects.foundation.*;
 
+import er.extensions.foundation.ERXArrayUtilities;
+
 /**
  * Various utility methods applying to NSArrays.
  */
@@ -303,5 +305,51 @@ public class USArrayUtilities {
 		}
 
 		return array;
+	}
+
+	/**
+	 * Construct an array of dictionaries with all value combinations in the given keyPaths.
+	 * 
+	 * @param objects The object array to go through
+	 * @param keyPaths The keyPaths to look at 
+	 * @return An array of distinct objects
+	 */
+	public static NSArray<NSDictionary<String, Object>> distinctCombinationsWithKeyPaths( NSArray objects, NSArray<String> keyPaths ) {
+
+		if( objects == null ) {
+			return NSArray.emptyArray();
+		}
+
+		if( keyPaths == null ) {
+			throw new IllegalArgumentException( "The [keyPaths] parameter must not be null" );
+		}
+
+		NSMutableSet<NSDictionary<String, Object>> a = new NSMutableSet<NSDictionary<String, Object>>();
+
+		for( Object object : objects ) {
+			NSMutableDictionary<String, Object> d = new NSMutableDictionary<String, Object>();
+			for( String keyPath : keyPaths ) {
+				Object value = ((NSKeyValueCodingAdditions)object).valueForKeyPath( keyPath );
+
+				if( value != null ) {
+					d.setObjectForKey( value, keyPath );
+				}
+				else {
+					d.setObjectForKey( NSKeyValueCoding.NullValue, keyPath );
+				}
+			}
+			a.addObject( d );
+		}
+
+		return a.allObjects();
+	}
+
+	/**
+	 * Fetch the distinct values of a keyPath.
+	 */
+	public static NSArray distinctValuesForKeyPath( NSArray objects, String keyPath ) {
+		NSArray result = (NSArray)objects.valueForKeyPath( keyPath );
+		result = ERXArrayUtilities.arrayWithoutDuplicates( result );
+		return result;
 	}
 }
