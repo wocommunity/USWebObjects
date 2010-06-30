@@ -14,6 +14,8 @@ import er.extensions.eof.*;
  * This class is for performang operations that need to be done on a lot of rows.
  * 
  * @author Hugi Þórðarson
+ * 
+ * FIXME: Work in progress.
  */
 
 public class USMassiveOperationJDBC {

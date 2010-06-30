@@ -15,8 +15,6 @@ import er.extensions.foundation.ERXArrayUtilities;
  * This class is for handling operations that need to work with massive amounts of data.
  * 
  * @author Hugi Þórðarson
- * 
- * FIXME: Implementation is not done yet
  */
 
 public class USMassiveOperation {

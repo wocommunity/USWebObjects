@@ -189,12 +189,14 @@ public class USTimestampUtilities {
 	public static boolean moreThanOneMonthFromPriorDateToDate( NSTimestamp date, NSTimestamp priorDate ) {
 
 		// TODO throw Exception
-		if( date == null || priorDate == null )
+		if( date == null || priorDate == null ) {
 			return false;
+		}
 
 		// TODO throw Exception
-		if( priorDate.after( date ) )
+		if( priorDate.after( date ) ) {
 			return false;
+		}
 
 		boolean currentDateAfterOrEqual = ERXTimestampUtility.dayOfMonth( date ) >= ERXTimestampUtility.dayOfMonth( priorDate );
 		boolean sameMonth = ERXTimestampUtility.monthOfYear( date ) == ERXTimestampUtility.monthOfYear( priorDate );
@@ -202,10 +204,12 @@ public class USTimestampUtilities {
 		boolean currentDateBeforeOrEqual = ERXTimestampUtility.dayOfMonth( date ) <= ERXTimestampUtility.dayOfMonth( priorDate );
 		boolean higherMonth = (ERXTimestampUtility.monthOfYear( date )) > ERXTimestampUtility.monthOfYear( priorDate );
 
-		if( currentDateAfterOrEqual && sameMonth && sameYear )
+		if( currentDateAfterOrEqual && sameMonth && sameYear ) {
 			return false;
-		else if( currentDateBeforeOrEqual && higherMonth && sameYear )
+		}
+		else if( currentDateBeforeOrEqual && higherMonth && sameYear ) {
 			return false;
+		}
 
 		return true;
 	}

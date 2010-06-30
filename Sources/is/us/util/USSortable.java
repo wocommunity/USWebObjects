@@ -1,8 +1,6 @@
 package is.us.util;
 
 /**
- * All sortable objects in SoloWeb implement this interface to allow for simple manipulation.
- * 
  * @author Hugi Þórðarson
  */
 

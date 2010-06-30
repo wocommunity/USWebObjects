@@ -5,7 +5,7 @@ import java.util.*;
 import com.webobjects.foundation.NSMutableArray;
 
 /**
- * Mixin for use in objects that implement the SWSortable interface.
+ * Mixin for use in objects that implement the USSortable interface.
  * 
  * @author Hugi Þórðarson
  */
