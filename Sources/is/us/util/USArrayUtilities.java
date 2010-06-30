@@ -8,6 +8,7 @@ import org.slf4j.*;
 
 import com.webobjects.eocontrol.*;
 import com.webobjects.foundation.*;
+import com.webobjects.foundation.NSComparator.ComparisonException;
 
 import er.extensions.foundation.ERXArrayUtilities;
 
@@ -43,12 +44,28 @@ public class USArrayUtilities {
 				set.addObject( stringValue.substring( 0, 1 ).toUpperCase() );
 			}
 		}
-		try {
-			return set.allObjects().sortedArrayUsingComparator( USGenericComparator.IcelandicAscendingComparator );
+
+		return sortedArrayUsingIcelandicComparator( set.allObjects() );
+	}
+
+	/**
+	 * Returns a new array sorted according to the Icelandic alphabet.
+	 * 
+	 * @param array the array to sort
+	 * @param keyPath the keypath to sort by
+	 */
+	public static NSArray<String> sortedArrayUsingIcelandicComparator( NSArray<String> array ) {
+
+		if( !arrayHasObjects( array ) ) {
+			return NSArray.emptyArray();
 		}
-		catch( Exception e ) {
-			logger.warn( "Could not sort objects in set", e );
-			return set.allObjects();
+
+		try {
+			return array.sortedArrayUsingComparator( USGenericComparator.IcelandicAscendingComparator );
+		}
+		catch( ComparisonException e ) {
+			logger.error( "Could not sort array", e );
+			return array;
 		}
 	}
 
@@ -56,16 +73,16 @@ public class USArrayUtilities {
 	 * Returns a new array sorted according to the icelandic alphabet on the given keypath of the array objects
 	 * 
 	 * @param array the array to sort
-	 * @param keypath the keypath to sort by
+	 * @param keyPath the keyPath to sort by
 	 */
-	public static <E> NSArray<E> sortedArrayUsingIcelandicComparator( NSArray<E> array, String keypath ) {
+	public static <E> NSArray<E> sortedArrayUsingIcelandicComparator( NSArray<E> array, String keyPath ) {
 
 		if( !arrayHasObjects( array ) ) {
 			return NSArray.emptyArray();
 		}
 
 		try {
-			USGenericComparator icelandicComparator = new USGenericComparator( java.text.Collator.getInstance( new java.util.Locale( "is", "IS" ) ), keypath, true, true );
+			USGenericComparator icelandicComparator = new USGenericComparator( java.text.Collator.getInstance( new java.util.Locale( "is", "IS" ) ), keyPath, true, true );
 			return array.sortedArrayUsingComparator( icelandicComparator );
 		}
 		catch( Exception e ) {
