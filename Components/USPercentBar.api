@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wodefinitions>
+    <wo class="USPercentBar" wocomponentcontent="false">    <binding name="value"/>
+        <binding name="maxValue"/>
+        <binding name="percent"/>
+        <binding name="width"/>
+        <validation message="'percent' is a required binding.">
+            <unbound name="percent"/>
+        </validation>
+    </wo>
+</wodefinitions>
