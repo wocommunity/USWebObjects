@@ -1,0 +1,22 @@
+TABLE: WOGenericContainer {
+	elementName = "table";
+	cellpadding = 0;
+	cellspacing = 0;
+	class = "bar";
+	width = totalWidth;
+}
+
+TD: WOGenericContainer {
+	elementName = "td";
+	class = "barLine";
+	width = barWidth;
+}
+
+REMAINING_TD: WOGenericContainer {
+	elementName = "td";	
+	width = remainingWidth;
+}
+
+PERCENT_STRING : WOString {
+	value = percent;
+}
