@@ -1,0 +1,9 @@
+DATA_NOT_NULL : WOConditional {
+	condition = data.length;
+}
+
+PHOTO : WOImage {
+	data = data;
+	mimeType = "image/jpeg";
+	id = id;
+}
