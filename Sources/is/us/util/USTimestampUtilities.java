@@ -220,11 +220,9 @@ public class USTimestampUtilities {
 	 * the date that is binded with USDatefield and returns it with system time.
 	 * BUT there must be another/better way to do this.
 	 * 
-	 * @return {@link NSTimestamp} with the current time( hour, minute, second )
-	 *         added
+	 * @return {@link NSTimestamp} with the current time( hour, minute, second ) added
 	 */
 	public static NSTimestamp dateWithTime( NSTimestamp date ) {
-		// Rename setTimeInTimestamp
 		NSTimestamp t = new NSTimestamp();
 		return date.timestampByAddingGregorianUnits( 0, 0, 0, ERXTimestampUtility.hourOfDay( t ), ERXTimestampUtility.minuteOfHour( t ), ERXTimestampUtility.secondOfMinute( t ) );
 	}
@@ -246,13 +244,35 @@ public class USTimestampUtilities {
 	 * Check if [original] is between [start] and [end], inclusive. 
 	 */
 	public static boolean between( NSTimestamp original, NSTimestamp start, NSTimestamp end ) {
-		if( original.getTime() == start.getTime() ) {
+
+		if( original == null ) {
+			return false;
+		}
+
+		if( start != null && (original.getTime() == start.getTime()) ) {
 			return true;
 		}
-		if( original.getTime() == end.getTime() ) {
+		if( end != null && (original.getTime() == end.getTime()) ) {
 			return true;
 		}
 
-		return (original.getTime() > start.getTime()) && (original.getTime() < end.getTime());
+		boolean afterStartDate = (start == null) || (original.getTime() > start.getTime());
+		boolean beforeEndDate = (end == null) || (original.getTime() < end.getTime());
+		return afterStartDate && beforeEndDate;
+	}
+
+	private static SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat( "dd.MM.yyyy" );
+
+	/**
+	 * Formats the date object into human readable string
+	 * @param date to format
+	 * @return an empty string if the date param is empty, else the formated date string
+	 */
+	public static String formatDateWithoutTime( Date date ) {
+		if( date == null ) {
+			return null;
+		}
+
+		return DATE_FORMAT_WITHOUT_TIME.format( date );
 	}
 }
