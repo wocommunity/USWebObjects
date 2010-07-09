@@ -231,8 +231,6 @@ public class USTimestampUtilities {
 
 	/**
 	 * Creates an NSTimestamp given a string and a format string.
-	 * 
-	 * @return
 	 */
 	public static NSTimestamp toNSTimestamp( String dateAndTimeString, String formatString ) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat( formatString );
@@ -242,5 +240,19 @@ public class USTimestampUtilities {
 		catch( ParseException e ) {
 			return null;
 		}
+	}
+
+	/**
+	 * Check if [original] is between [start] and [end], inclusive. 
+	 */
+	public static boolean between( NSTimestamp original, NSTimestamp start, NSTimestamp end ) {
+		if( original.getTime() == start.getTime() ) {
+			return true;
+		}
+		if( original.getTime() == end.getTime() ) {
+			return true;
+		}
+
+		return (original.getTime() > start.getTime()) && (original.getTime() < end.getTime());
 	}
 }
