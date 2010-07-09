@@ -270,7 +270,7 @@ public class USTimestampUtilities {
 	 */
 	public static String formatDateWithoutTime( Date date ) {
 		if( date == null ) {
-			return null;
+			return "";
 		}
 
 		return DATE_FORMAT_WITHOUT_TIME.format( date );
