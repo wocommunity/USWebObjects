@@ -358,12 +358,25 @@ public class USUtilities {
 	 * If no framework name is specified, reads from the "app" bundle by default.
 	 */
 	public static String stringFromResource( String resourceName, String frameworkName ) {
+		return stringFromResource( resourceName, frameworkName, null );
+	}
+
+	/**
+	 * Reads data from the named resource and converts it to a string using UTF-8.
+	 * 
+	 * If no framework name is specified, reads from the "app" bundle by default.
+	 */
+	public static String stringFromResource( String resourceName, String frameworkName, String language ) {
 
 		if( frameworkName == null ) {
 			frameworkName = "app";
 		}
 
-		byte[] templateData = WOApplication.application().resourceManager().bytesForResourceNamed( resourceName, frameworkName, null );
+		if( language == null ) {
+			language = "Icelandic";
+		}
+
+		byte[] templateData = WOApplication.application().resourceManager().bytesForResourceNamed( resourceName, frameworkName, new NSArray<String>( language ) );
 		String template = null;
 
 		try {
