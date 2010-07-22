@@ -13,5 +13,8 @@
         </validation>
     <binding name="width"/>
         <binding name="height"/>
+    <binding name="newBinding"/>
+        <binding defaults="Boolean" name="showLink"/>
+        <binding defaults="Boolean" name="showOpen"/>
     </wo>
 </wodefinitions>

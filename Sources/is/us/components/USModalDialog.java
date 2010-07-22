@@ -29,6 +29,8 @@ public class USModalDialog extends ERXComponent {
 	private String _id = "usmdg";
 	private int _height = 0;
 	private int _width = 0;
+	private boolean _showLink = true;
+	private boolean _showOpen = false;
 
 	public USModalDialog( WOContext context ) {
 		super( context );
@@ -147,6 +149,26 @@ public class USModalDialog extends ERXComponent {
 	 */
 	public void setWidth( int width ) {
 		_width = width;
+	}
+
+	public boolean showLink() {
+		return _showLink;
+	}
+
+	public void setShowLink( boolean showLink ) {
+		_showLink = showLink;
+	}
+
+	public boolean showOpen() {
+		return _showOpen;
+	}
+
+	public void setShowOpen( boolean showOpen ) {
+		_showOpen = showOpen;
+	}
+
+	public String divDisplayStyle() {
+		return showOpen() ? "display:display" : "display:none";
 	}
 
 	/**

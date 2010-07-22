@@ -1,4 +1,4 @@
-<wo:conditional condition = "$linkIcon"><wo:image data = "$linkIcon" mimeType = "$linkIconMime" /></wo:conditional><wo:hyperlink onClick="$openDialogJS" href = "#"><wo:string value="$^linkString" /></wo:hyperlink>
-<wo:genericContainer elementName = "div" id="$id" style="display:none">
+<wo:conditional condition = "$linkIcon"><wo:image data = "$linkIcon" mimeType = "$linkIconMime" /></wo:conditional><wo:conditional condition = "$showLink"><wo:hyperlink onClick="$openDialogJS" href = "#"><wo:string value="$^linkString" /></wo:hyperlink></wo:conditional>
+<wo:genericContainer elementName = "div" id="$id" style="$divDisplayStyle">
 	<wo:componentContent />
 </wo:genericContainer>
