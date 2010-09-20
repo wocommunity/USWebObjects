@@ -2,23 +2,13 @@ package is.us.util;
 
 import is.us.wo.util.USC;
 
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import com.webobjects.eocontrol.EOQualifier;
-import com.webobjects.eocontrol.EOSortOrdering;
-import com.webobjects.foundation.NSArray;
+import com.webobjects.eocontrol.*;
+import com.webobjects.foundation.*;
 import com.webobjects.foundation.NSComparator.ComparisonException;
-import com.webobjects.foundation.NSDictionary;
-import com.webobjects.foundation.NSKeyValueCoding;
-import com.webobjects.foundation.NSKeyValueCodingAdditions;
-import com.webobjects.foundation.NSMutableArray;
-import com.webobjects.foundation.NSMutableDictionary;
-import com.webobjects.foundation.NSMutableSet;
-import com.webobjects.foundation.NSRange;
 
 import er.extensions.foundation.ERXArrayUtilities;
 
@@ -138,7 +128,7 @@ public class USArrayUtilities {
 		NSMutableArray<E> result = new NSMutableArray<E>();
 
 		for( int i = count; i > 0; i-- ) {
-			Object randomObject = randomObjectFromArray( originalArrayMutable );
+			E randomObject = randomObjectFromArray( originalArrayMutable );
 			result.addObject( randomObject );
 			originalArrayMutable.removeObject( randomObject );
 		}
