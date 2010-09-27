@@ -127,6 +127,8 @@ public class USC {
 	public static final String PLATE_STATUS_IN_STORAGE = "04";
 	public static final String PLATE_STATUS_ON_VEHICLE = "05";
 	public static final String PLATE_STATUS_DESTROYED = "06";
+	public static final String PLATE_STATUS_RENTED = "08";
+	public static final String PLATE_STATUS_LOST = "10";
 	public static final String PLATE_STATUS_REDIRECTED = "11";
 
 	// Cret.code
@@ -151,6 +153,7 @@ public class USC {
 	// Crgr
 	public static final String REGGROUP_PRIVATE_NUMBERS = "N2";
 	public static final String REGGROUP_PRIVATE_NUMBERS_LIGHTWEIGHT = "N10";
+	public static final String REGGROUP_TRIAL_NUMBERS = "N9";
 
 	// Cstn
 	public static final String STATION_NUMBERS_REGISTRARS = "R";
