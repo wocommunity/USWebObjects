@@ -101,7 +101,16 @@ public class USUtilities {
 			}
 
 			if( o instanceof String ) {
-				return new Integer( ((String)o) );
+				if( USStringUtilities.isDigitsOnly( (String)o ) ) {
+					return new Integer( ((String)o) );
+				}
+				else {
+					Double d = Double.valueOf( (String)o );
+
+					if( d != null ) {
+						return d.intValue();
+					}
+				}
 			}
 		}
 		catch( Exception e ) {
