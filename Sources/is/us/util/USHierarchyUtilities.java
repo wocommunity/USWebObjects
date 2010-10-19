@@ -26,8 +26,7 @@ public class USHierarchyUtilities {
 	 * Indicates if the node is at the top of the hiearchy (has no parent).
 	 */
 	public static boolean isRoot( USHierarchy object ) {
-		boolean isRoot = object.parent() == null;
-		return isRoot;
+		return object.parent() == null;
 	}
 
 	/**
@@ -35,8 +34,9 @@ public class USHierarchyUtilities {
 	 */
 	public static NSArray siblings( USHierarchy object ) {
 
-		if( isRoot( object ) )
+		if( isRoot( object ) ) {
 			return new NSArray( object );
+		}
 
 		return (object.parent()).children();
 	}
@@ -110,15 +110,17 @@ public class USHierarchyUtilities {
 	 */
 	public static NSArray everyParentNode( USHierarchy anObject, boolean includeSelf ) {
 
-		if( anObject == null )
-			return NSArray.EmptyArray;
+		if( anObject == null ) {
+			return NSArray.emptyArray();
+		}
 
 		USHierarchy h = anObject;
 
 		NSMutableArray tempArray = new NSMutableArray();
 
-		if( includeSelf )
+		if( includeSelf ) {
 			tempArray.addObject( h );
+		}
 
 		while( h.parent() != null ) {
 			h = h.parent();
@@ -140,12 +142,12 @@ public class USHierarchyUtilities {
 	 */
 
 	public static USHierarchy parentNodeAtLevel( USHierarchy anObject, int aLevel ) {
-
 		try {
 			NSArray anArray = everyParentNode( anObject, true );
 			return (USHierarchy)anArray.objectAtIndex( anArray.count() - aLevel );
 		}
 		catch( Exception e ) {
+			// FIXME: Wrong, wrong, wrong.
 			return null;
 		}
 	}
