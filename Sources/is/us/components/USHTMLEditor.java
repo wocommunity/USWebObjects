@@ -1,16 +1,13 @@
 package is.us.components;
 
-import is.us.util.*;
-import is.us.wo.util.USHTTPUtilities;
-
 import com.webobjects.appserver.WOContext;
 
+import er.extensions.appserver.*;
 import er.extensions.components.ERXComponent;
 
 /**
  * @author Hugi Þórðarson
  * 
- * TODO: Use ERXBrowser to check for compatibility.
  */
 
 public class USHTMLEditor extends ERXComponent {
@@ -21,20 +18,16 @@ public class USHTMLEditor extends ERXComponent {
 		super( context );
 	}
 
+	/**
+	 * @return true if the browser is supported by the HTML editor.
+	 */
 	public boolean isExplorerCompatible() {
 
-		String userAgentString = USHTTPUtilities.userAgent( context().request() );
+		ERXBrowser browser = ((ERXRequest)context().request()).browser();
 
-		if( !USStringUtilities.stringHasValue( userAgentString ) )
-			return false;
-
-		userAgentString = userAgentString.toLowerCase();
-
-		if( userAgentString.indexOf( "msie" ) != -1 && userAgentString.indexOf( "windows" ) != -1 )
+		if( browser.isIE() || browser.isSafari() ) {
 			return true;
-
-		if( userAgentString.indexOf( "mozilla" ) != -1 && userAgentString.indexOf( "safari" ) == -1 )
-			return true;
+		}
 
 		return false;
 	}
