@@ -25,7 +25,7 @@ public class USHTMLEditor extends ERXComponent {
 
 		ERXBrowser browser = ((ERXRequest)context().request()).browser();
 
-		if( browser.isIE() || browser.isSafari() ) {
+		if( browser.isIE() || browser.isSafari() || browser.isMozilla50Compatible() ) {
 			return true;
 		}
 
