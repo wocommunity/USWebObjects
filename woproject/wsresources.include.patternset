@@ -3,3 +3,5 @@ WebServerResources/**/*
 **/*.js
 **/*.css
 **/*.gif
+**/*.jpg
+**/*.jpeg
