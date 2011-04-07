@@ -5,3 +5,5 @@ WebServerResources/**/*
 **/*.gif
 **/*.jpg
 **/*.jpeg
+**/*.htm
+**/*.html
