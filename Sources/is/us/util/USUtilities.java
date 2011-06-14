@@ -177,6 +177,9 @@ public class USUtilities {
 	 * Prints the stacktrace for a Trowable to a string. 
 	 */
 	public static String stackTraceAsString( Throwable t ) {
+		if( t == null ) {
+			return "";
+		}
 		StringWriter sw = new StringWriter();
 		t.printStackTrace( new PrintWriter( sw ) );
 		return sw.toString();
@@ -188,7 +191,7 @@ public class USUtilities {
 	public static String stackTraceAsHTMLString( Throwable t ) {
 
 		if( t == null ) {
-			return null;
+			return "";
 		}
 
 		StackTraceElement[] stack = t.getStackTrace();
