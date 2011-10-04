@@ -2,22 +2,38 @@ package is.us.wo.util;
 
 import is.us.util.USStringUtilities;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.zip.GZIPOutputStream;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.webobjects.appserver.*;
-import com.webobjects.foundation.*;
+import com.webobjects.appserver.WOContext;
+import com.webobjects.appserver.WOCookie;
+import com.webobjects.appserver.WORequest;
+import com.webobjects.appserver.WOResponse;
+import com.webobjects.foundation.NSArray;
+import com.webobjects.foundation.NSData;
+import com.webobjects.foundation.NSDictionary;
+import com.webobjects.foundation.NSMutableArray;
+import com.webobjects.foundation.NSRange;
 
 import er.extensions.appserver.ERXRequest;
 import er.extensions.foundation.ERXRefByteArrayOutputStream;
 
 /**
- * Fetches various information from HTTP-headers. 
+ * Fetches various information from HTTP-headers.
  * 
- * @author Hugi Þórðarson 
+ * @author Hugi Þórðarson
  */
 
 public class USHTTPUtilities {
@@ -111,7 +127,7 @@ public class USHTTPUtilities {
 
 	/**
 	 * This method creates a WOResponse with a temporary (302) redirect to the specified URL
-	 *
+	 * 
 	 * @param targetURL The URL to redirect to
 	 */
 	public static WOResponse redirectTemporary( String targetURL ) {
@@ -127,7 +143,7 @@ public class USHTTPUtilities {
 
 	/**
 	 * This method creates a WOResponse with a permanent (301) redirect to the specified URL
-	 *
+	 * 
 	 * @param targetURL The URL to redirect to
 	 */
 	public static WOResponse redirectPermanent( String targetURL ) {
@@ -142,8 +158,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Creates a new WOContext with an empty WORequest.
-	 * Can be used to create WOContexts for unit tests. 
+	 * Creates a new WOContext with an empty WORequest. Can be used to create WOContexts for unit tests.
 	 */
 	public static WOContext createWOContext( String method, String url ) {
 		WORequest worequest = new WORequest( method, url, "HTTP/1.0", NSDictionary.EmptyDictionary, NSData.EmptyData, NSDictionary.EmptyDictionary );
@@ -201,7 +216,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Gets the top level domain from a host string. 
+	 * Gets the top level domain from a host string.
 	 */
 	public static String domainStringFromHostString( String hostString ) {
 
@@ -288,7 +303,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Indicates if the browser initiating the given request can handle gzip compressed content. 
+	 * Indicates if the browser initiating the given request can handle gzip compressed content.
 	 */
 	public static boolean supportsGzip( WORequest request ) {
 		String s = request.headerForKey( HEADER_ACCEPT_ENCODING );
@@ -296,9 +311,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * WO is very strict when parsing cookies and a cookie with no value
-	 * can result in no cookies being available.
-	 * see: http://osdir.com/ml/web.webobjects.devel/2002-04/msg00764.html
+	 * WO is very strict when parsing cookies and a cookie with no value can result in no cookies being available. see: http://osdir.com/ml/web.webobjects.devel/2002-04/msg00764.html
 	 */
 	public static void removeNullCookies( WORequest request ) {
 		String cookieHeader = request.headerForKey( HEADER_COOKIE );
@@ -318,7 +331,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Makes a filename cross-platform and cross browser friendly. 
+	 * Makes a filename cross-platform and cross browser friendly.
 	 */
 	public static String makeFilenameURLFriendly( String fileName, String extension ) {
 
@@ -342,28 +355,28 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed). 
+	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed).
 	 */
 	public static String redirectURL( WORequest r ) {
 		return r.headerForKey( HEADER_REDIRECT_URL );
 	}
 
 	/**
-	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed). 
+	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed).
 	 */
 	public static String contentType( WOResponse r ) {
 		return r.headerForKey( HEADER_CONTENT_TYPE );
 	}
 
 	/**
-	 * Returns the value of the content length header. 
+	 * Returns the value of the content length header.
 	 */
 	public static String contentLength( WOResponse r ) {
 		return r.headerForKey( HEADER_CONTENT_LENGTH );
 	}
 
 	/**
-	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed). 
+	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed).
 	 */
 	public static void fixContentLengthHeader( WOResponse r ) {
 		NSData content = r.content();
@@ -388,7 +401,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed). 
+	 * If the WO app is used as a 404 handler, this method returns the requested URL (that failed).
 	 */
 	public static String contentEncoding( WOResponse r ) {
 		return r.headerForKey( HEADER_CONTENT_ENCODING );
@@ -507,7 +520,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Response with HTTP status 404 
+	 * Response with HTTP status 404
 	 */
 	public static WOResponse response404() {
 		WOResponse r = new WOResponse();
@@ -516,7 +529,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Response with HTTP status 500 
+	 * Response with HTTP status 500
 	 */
 	public static WOResponse response500() {
 		WOResponse r = new WOResponse();
@@ -588,8 +601,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * After dispatchRequest has been fired, the "cookie" header in WOResponse has already been set.
-	 * If we make changes to cookies after that, we need to set the header manually. 
+	 * After dispatchRequest has been fired, the "cookie" header in WOResponse has already been set. If we make changes to cookies after that, we need to set the header manually.
 	 * 
 	 * @param response The response to modify.
 	 */
@@ -605,8 +617,7 @@ public class USHTTPUtilities {
 	}
 
 	/**
-	 * Creates a WOResponse containing the given PDF-data in a PDF-file with the given name.
-	 * You do not have to specify the ".pdf"-extension to the file name (the method till appends that to the name for you).
+	 * Creates a WOResponse containing the given PDF-data in a PDF-file with the given name. You do not have to specify the ".pdf"-extension to the file name (the method till appends that to the name for you).
 	 */
 	public static WOResponse pdfResponseWithData( String filename, NSData data ) {
 
@@ -635,5 +646,55 @@ public class USHTTPUtilities {
 		b.append( request.remoteHostName() );
 		b.append( request.uri() );
 		return b.toString();
+	}
+
+	@SuppressWarnings( "deprecation" )
+	public static byte[] getDataFromUrl( String url ) {
+		URL u;
+		InputStream is = null;
+		DataInputStream dis;
+		String s;
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+		try {
+			u = new URL( url );
+
+			is = u.openStream(); // throws an IOException
+
+			dis = new DataInputStream( new BufferedInputStream( is ) );
+
+			byte[] buffer = new byte[1024];
+			int byteReaded = is.read( buffer );
+			while( byteReaded != -1 ) {
+				os.write( buffer, 0, byteReaded );
+				byteReaded = is.read( buffer );
+			}
+
+		}
+		catch( MalformedURLException mue ) {
+
+			System.out.println( "Ouch - a MalformedURLException happened." );
+			mue.printStackTrace();
+			System.exit( 1 );
+
+		}
+		catch( IOException ioe ) {
+
+			System.out.println( "Oops- an IOException happened." );
+			ioe.printStackTrace();
+			System.exit( 1 );
+
+		}
+		finally {
+
+			try {
+				is.close();
+			}
+			catch( IOException ioe ) {
+				// just going to ignore this one
+			}
+
+		}
+		return os.toByteArray();
 	}
 }
