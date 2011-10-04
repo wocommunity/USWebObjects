@@ -13,6 +13,7 @@ import org.slf4j.*;
 import com.webobjects.appserver.WOApplication;
 import com.webobjects.foundation.*;
 
+import er.extensions.foundation.ERXProperties;
 import er.javamail.*;
 
 /**
@@ -50,9 +51,9 @@ public class USMailSender {
 	 * @param plainTextBody The message's plain text body.
 	 * @param htmlBody The message's HTML body.
 	 */
-	public static void composeEmailWithAlternateTextAndAttachmentsWithException( String from, NSArray<String> to, NSArray<String> cc, NSArray<String> bcc, String subject, String plaintextBody, String htmlBody, NSArray<String> attachmentFilePaths ) throws MessagingException {
+	public static void composeEmailWithAlternateTextAndAttachmentsWithException( String from, NSArray<String> to, NSArray<String> cc, NSArray<String> bcc, String subject, String plaintextBody, String htmlBody, NSArray<String> attachmentFilePaths ) throws Exception {
 		Properties defaultProperties = new Properties();
-		defaultProperties.put( "mail.smtp.host", WOApplication.application().SMTPHost() );
+		defaultProperties.put( "mail.smtp.host", ERXProperties.stringForKey("er.javamail.smtpHost") );
 		javax.mail.Session defaultMailSession = javax.mail.Session.getDefaultInstance( defaultProperties, null );
 		MimeMessage msg = new MimeMessage( defaultMailSession );
 		msg.setSentDate( new Date() );
@@ -138,7 +139,7 @@ public class USMailSender {
 	/**
 	 * Send mail with multiple attachments.
 	 */
-	public static void composeEmailWithException( String fromEmail, NSArray<String> toAddresses, String subject, String content, NSDictionary<String, NSData> attachments ) throws AddressException, MessagingException {
+	public static void composeEmailWithException( String fromEmail, NSArray<String> toAddresses, String subject, String content, NSDictionary<String, NSData> attachments ) throws Exception {
 		ERMailDeliveryPlainText mail = new ERMailDeliveryPlainText();
 		mail.newMail();
 		mail.setFromAddress( fromEmail );
@@ -158,8 +159,11 @@ public class USMailSender {
 				mail.addAttachment( new ERMailDataAttachment( nextAttachmentName, String.valueOf( RANDOM.nextInt() ), attachments.objectForKey( nextAttachmentName ) ) );
 			}
 		}
-
-		mail.sendMail();
+		
+			mail.sendMail();
+	
+		
+		
 	}
 
 	/**
