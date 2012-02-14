@@ -88,6 +88,7 @@ public class USC {
 	public static final String US_COMMON_COMPONENTS = "USCommonComponents";
 	public static final String EKJA_FRAMEWORK = "EkjaFramework";
 	public static final String APP_FRAMEWORK = "app";
+	public static final String MITT_FRAMEWORK = "Mitt";
 
 	public static final String CSS_ODD_ROW = "oddRow";
 	public static final String CSS_EVEN_ROW = "evenRow";
