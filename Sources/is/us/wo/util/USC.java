@@ -174,6 +174,10 @@ public class USC {
 	public static final String FUEL_UNKNOWN = "9"; //	Óþekkt
 	public static final String FUEL_CAN_NOT_BE_USED = "10";//	Má ekki nota
 
+	// Cilt
+	public static final String INFL_ANONYMUS = "2";
+	
+	
 	// Plin
 	public static final String PLATE_DEPOSIT = "I"; //	Innlögn
 	public static final String PLATE_WITHDRAWAL = "A"; //	úttekt
