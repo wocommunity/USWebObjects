@@ -9,6 +9,7 @@ import com.webobjects.foundation.NSArray;
  * Various constants used throughout US.
  * 
  * @author Hugi Þórðarson
+ * 
  */
 
 public class USC {
