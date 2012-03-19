@@ -2,30 +2,14 @@ package is.us.wo.util;
 
 import is.us.util.USStringUtilities;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.zip.GZIPOutputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import com.webobjects.appserver.WOContext;
-import com.webobjects.appserver.WOCookie;
-import com.webobjects.appserver.WORequest;
-import com.webobjects.appserver.WOResponse;
-import com.webobjects.foundation.NSArray;
-import com.webobjects.foundation.NSData;
-import com.webobjects.foundation.NSDictionary;
-import com.webobjects.foundation.NSMutableArray;
-import com.webobjects.foundation.NSRange;
+import com.webobjects.appserver.*;
+import com.webobjects.foundation.*;
 
 import er.extensions.appserver.ERXRequest;
 import er.extensions.foundation.ERXRefByteArrayOutputStream;
@@ -322,7 +306,7 @@ public class USHTTPUtilities {
 			for( String cookie : cookies ) {
 				String[] pair = cookie.split( "=" );
 
-				//filter out cookies with no value
+				// filter out cookies with no value
 				if( pair.length == 2 && pair[1] != null && !pair[1].equals( "" ) )
 					fixedCookieHeader.append( pair[0] + "=" + pair[1] + ";" );
 			}
@@ -596,6 +580,18 @@ public class USHTTPUtilities {
 	public static WOResponse createXMLResponseWithContent( String contentString ) {
 		WOResponse r = new WOResponse();
 		r.setHeader( USC.MIME_TYPE_XML, HEADER_CONTENT_TYPE );
+		r.setContent( contentString );
+		return r;
+	}
+
+	/**
+	 * Creates an xml-typed response and inserts the content string.
+	 * 
+	 * @param contentString The Content of the response.
+	 */
+	public static WOResponse createHTMLResponseWithContent( String contentString ) {
+		WOResponse r = new WOResponse();
+		r.setHeader( USC.MIME_TYPE_HTML, HEADER_CONTENT_TYPE );
 		r.setContent( contentString );
 		return r;
 	}
